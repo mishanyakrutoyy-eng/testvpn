@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Shift Shield · VPN</title>
     
-    <!-- PWA для добавления на главный экран -->
+    <!-- PWA -->
     <link rel="manifest" href="data:application/manifest+json,{
         \"name\": \"Shift Shield\",
         \"short_name\": \"ShiftShield\",
@@ -56,7 +56,7 @@
             color: #eef2ff;
         }
 
-        /* КРУТОЙ СПЛЕШ-ЭКРАН */
+        /* СПЛЕШ-ЭКРАН */
         .splash-screen {
             position: fixed;
             top: 0;
@@ -68,65 +68,59 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0.6s ease;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
             visibility: visible;
             opacity: 1;
         }
         body.dark .splash-screen {
             background: #12141c;
         }
+        .splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
         .splash-content {
             text-align: center;
-            transform: scale(0.95);
-            animation: splashEnter 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
         }
         .splash-logo {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             background: #1a1f2e;
-            border-radius: 32px;
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 24px;
-            animation: logoGlow 1.2s ease-in-out infinite, logoFloat 2s ease-in-out infinite;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            margin: 0 auto 20px;
+            animation: splashPulse 1.2s ease-in-out infinite;
         }
         body.dark .splash-logo {
             background: #3b4259;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
         .splash-logo i {
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: white;
-            animation: logoRotate 1.5s ease-in-out infinite;
         }
         .splash-text {
-            font-weight: 800;
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, #1a1f2e 0%, #3a4a6e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-            margin-bottom: 16px;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #1a1f2e;
         }
         body.dark .splash-text {
-            background: linear-gradient(135deg, #ffffff 0%, #b0bbff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #eef2ff;
         }
         .splash-dots {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
+            margin-top: 12px;
         }
         .splash-dots span {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: #1a1f2e;
             border-radius: 50%;
             opacity: 0.5;
-            animation: dotWave 1.2s ease-in-out infinite;
+            animation: dotPulse 1s ease-in-out infinite;
         }
         body.dark .splash-dots span {
             background: #b0bbff;
@@ -135,30 +129,17 @@
         .splash-dots span:nth-child(2) { animation-delay: 0.2s; }
         .splash-dots span:nth-child(3) { animation-delay: 0.4s; }
         
-        @keyframes splashEnter {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes splashPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
-        @keyframes logoGlow {
-            0%, 100% { box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-            50% { box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
-        }
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-        @keyframes logoRotate {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(8deg); }
-            75% { transform: rotate(-8deg); }
-        }
-        @keyframes dotWave {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.3); opacity: 1; }
+        @keyframes dotPulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
         }
 
         .mobile-container {
-            max-width: 430px;
+            max-width: 500px;
             width: 100%;
             margin: 0 auto;
             background: #ffffff;
@@ -180,10 +161,12 @@
             opacity: 1;
         }
 
-        /* небольшое пространство сверху */
-        .status-bar-spacer {
-            height: 8px;
+        /* безопасная зона сверху (для Dynamic Island / notch) */
+        .safe-top {
+            height: env(safe-area-inset-top, 44px);
+            min-height: 44px;
             background: transparent;
+            width: 100%;
         }
 
         .header {
@@ -191,7 +174,7 @@
             top: 0;
             z-index: 100;
             background: white;
-            padding: 12px 18px 10px 18px;
+            padding: 10px 16px;
             border-bottom: 1px solid #eff2f8;
             display: flex;
             align-items: center;
@@ -208,14 +191,14 @@
             align-items: center;
             gap: 8px;
             font-weight: 700;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
         }
         .logo-icon {
             background: #1a1f2e;
             color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 12px;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -230,6 +213,7 @@
             background: linear-gradient(135deg, #1a1f2e 0%, #2d3a4e 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-size: 1.2rem;
         }
         body.dark .logo span {
             background: linear-gradient(135deg, #ffffff 0%, #b0bbff 100%);
@@ -241,9 +225,9 @@
             font-weight: 600;
             color: #4a5b7a;
             background: #f0f3fa;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 30px;
-            margin-right: 8px;
+            margin-right: 6px;
         }
         body.dark .vpn-badge {
             background: #2d3348;
@@ -255,7 +239,7 @@
             font-size: 1.2rem;
             color: #1a1f2e;
             cursor: pointer;
-            padding: 8px;
+            padding: 6px;
             border-radius: 50%;
             transition: background 0.2s;
             display: flex;
@@ -276,7 +260,7 @@
 
         .map-wrapper {
             position: relative;
-            height: 280px;
+            height: 260px;
             width: 100%;
             background: #e6edf6;
             overflow: hidden;
@@ -321,8 +305,8 @@
             background: rgba(18, 20, 28, 0.92);
         }
         .map-overlay.hidden { opacity: 0; pointer-events: none; }
-        .map-overlay i { font-size: 2.5rem; color: #8b99ae; }
-        .map-overlay span { font-size: 0.9rem; font-weight: 500; color: #5b6a84; }
+        .map-overlay i { font-size: 2.2rem; color: #8b99ae; }
+        .map-overlay span { font-size: 0.85rem; font-weight: 500; color: #5b6a84; }
         body.dark .map-overlay span { color: #9aa6c2; }
 
         .vpn-loading-overlay {
@@ -338,27 +322,27 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
         }
         .vpn-loading-overlay.active { opacity: 1; visibility: visible; }
         .loading-shield {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             background: rgba(255,255,255,0.15);
-            border-radius: 24px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             animation: loadingPulse 1.2s ease-in-out infinite;
         }
-        .loading-shield i { font-size: 2.5rem; color: white; }
-        .loading-text { color: white; font-size: 0.9rem; font-weight: 500; }
-        .loading-dots { display: flex; gap: 6px; }
+        .loading-shield i { font-size: 2rem; color: white; }
+        .loading-text { color: white; font-size: 0.85rem; font-weight: 500; }
+        .loading-dots { display: flex; gap: 5px; }
         .loading-dots span {
-            width: 6px; height: 6px; background: white; border-radius: 50%;
+            width: 5px; height: 5px; background: white; border-radius: 50%;
             opacity: 0.6; animation: loadingDot 1s ease-in-out infinite;
         }
         @keyframes loadingPulse { 0%,100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
@@ -367,9 +351,9 @@
         .content { flex: 1; padding: 12px 16px 20px; }
         .active-card {
             background: #f8fafd;
-            border-radius: 28px;
-            padding: 16px;
-            margin-bottom: 20px;
+            border-radius: 24px;
+            padding: 14px;
+            margin-bottom: 16px;
             border: 1px solid #eef2f8;
             transition: background 0.3s ease, border-color 0.3s ease;
         }
@@ -377,9 +361,9 @@
             background: #23283c;
             border-color: #2d3348;
         }
-        .status-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .status-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
         .led {
-            width: 10px; height: 10px; border-radius: 50%;
+            width: 8px; height: 8px; border-radius: 50%;
             background: #4cd964; box-shadow: 0 0 6px #4cd964;
             display: inline-block; margin-right: 6px;
         }
@@ -388,7 +372,7 @@
         .current-ip {
             font-family: monospace;
             background: white;
-            padding: 4px 12px;
+            padding: 4px 10px;
             border-radius: 30px;
             font-size: 0.7rem;
             font-weight: 500;
@@ -399,29 +383,29 @@
             border-color: #3d435c;
             color: #eef2ff;
         }
-        .stats-grid { display: flex; gap: 12px; margin: 12px 0; }
+        .stats-grid { display: flex; gap: 10px; margin: 10px 0; }
         .stat-item {
             flex: 1;
             background: white;
-            border-radius: 20px;
-            padding: 10px;
+            border-radius: 16px;
+            padding: 8px;
             text-align: center;
             transition: background 0.3s ease;
         }
         body.dark .stat-item { background: #1a1e2c; }
-        .stat-value { font-size: 1.2rem; font-weight: 700; color: #1a1f2e; }
+        .stat-value { font-size: 1.1rem; font-weight: 700; color: #1a1f2e; }
         body.dark .stat-value { color: #eef2ff; }
-        .stat-label { font-size: 0.65rem; color: #6c7a91; }
+        .stat-label { font-size: 0.6rem; color: #6c7a91; }
         body.dark .stat-label { color: #9aa6c2; }
         .action-btn {
             width: 100%;
             background: #1a1f2e;
             border: none;
             color: white;
-            padding: 12px 0;
-            border-radius: 50px;
+            padding: 10px 0;
+            border-radius: 40px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -433,11 +417,11 @@
 
         .keys-section { margin-top: 8px; }
         .section-title {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
             color: #6c7a91;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -447,7 +431,7 @@
             background: none;
             border: none;
             color: #1a1f2e;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
@@ -458,8 +442,8 @@
         .keys-list { display: flex; flex-direction: column; gap: 8px; }
         .key-item {
             background: #f8fafd;
-            border-radius: 20px;
-            padding: 12px;
+            border-radius: 18px;
+            padding: 10px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -473,33 +457,33 @@
         }
         .key-item.active { border-color: #1a1f2e; background: #eff3ff; }
         body.dark .key-item.active { border-color: #6c7aff; background: #2a3048; }
-        .key-info { display: flex; align-items: center; gap: 10px; }
-        .key-flag { font-size: 1.6rem; }
-        .key-country { font-weight: 700; font-size: 0.9rem; }
+        .key-info { display: flex; align-items: center; gap: 8px; }
+        .key-flag { font-size: 1.4rem; }
+        .key-country { font-weight: 600; font-size: 0.85rem; }
         body.dark .key-country { color: #eef2ff; }
         .key-link {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: #8b99ae;
             font-family: monospace;
-            max-width: 180px;
+            max-width: 150px;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         .key-status-badge {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             background: white;
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 30px;
             font-weight: 500;
         }
         body.dark .key-status-badge { background: #1a1e2c; color: #b0bbff; }
         .footer-note {
             text-align: center;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: #9aa6bb;
-            padding: 16px;
+            padding: 12px;
             border-top: 1px solid #f0f2f8;
-            margin-top: 12px;
+            margin-top: 10px;
         }
         body.dark .footer-note {
             color: #6c7a91;
@@ -525,21 +509,21 @@
         .modal-overlay.active { visibility: visible; opacity: 1; }
         .modal {
             background: white;
-            border-radius: 32px;
+            border-radius: 28px;
             width: 90%;
-            max-width: 340px;
-            padding: 24px;
+            max-width: 320px;
+            padding: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         body.dark .modal { background: #1a1e2c; }
-        .modal h3 { font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .modal h3 { font-size: 1.1rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
         body.dark .modal h3 { color: #eef2ff; }
         .modal input {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             border: 1.5px solid #e2e8f0;
             border-radius: 40px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-family: monospace;
             margin-bottom: 16px;
             outline: none;
@@ -549,14 +533,15 @@
             border-color: #3d435c;
             color: #eef2ff;
         }
-        .modal-buttons { display: flex; gap: 12px; }
+        .modal-buttons { display: flex; gap: 10px; }
         .modal-btn {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             border-radius: 40px;
             font-weight: 600;
             border: none;
             cursor: pointer;
+            font-size: 0.8rem;
         }
         .modal-btn.cancel { background: #f0f2f8; color: #1a1f2e; }
         .modal-btn.confirm { background: #1a1f2e; color: white; }
@@ -567,23 +552,24 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #eef2f8;
         }
         body.dark .settings-item { border-bottom-color: #2d3348; }
         .settings-item:last-child { border-bottom: none; }
-        .settings-label { font-weight: 500; }
+        .settings-label { font-weight: 500; font-size: 0.85rem; }
         .support-link {
             color: #1a1f2e;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            font-size: 0.85rem;
         }
         body.dark .support-link { color: #b0bbff; }
         .toggle-switch {
             width: 44px;
-            height: 24px;
+            height: 22px;
             background: #cbd5e1;
             border-radius: 30px;
             position: relative;
@@ -594,8 +580,8 @@
         body.dark .toggle-switch.active { background: #3b4259; }
         .toggle-switch::after {
             content: '';
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             background: white;
             border-radius: 50%;
             position: absolute;
@@ -603,25 +589,25 @@
             left: 2px;
             transition: 0.2s;
         }
-        .toggle-switch.active::after { left: 22px; }
+        .toggle-switch.active::after { left: 24px; }
 
         .notification-container {
             position: fixed;
             top: 80px;
-            right: 16px;
+            right: 12px;
             z-index: 2000;
-            width: 280px;
+            width: 260px;
             pointer-events: none;
         }
         .notification {
             background: rgba(26, 31, 46, 0.95);
             backdrop-filter: blur(8px);
             color: white;
-            border-radius: 20px;
-            padding: 12px 16px;
+            border-radius: 18px;
+            padding: 10px 14px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.2);
             transform: translateX(120%);
             transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
@@ -629,20 +615,26 @@
         }
         .notification.show { transform: translateX(0); }
         .notification-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 12px;
+            width: 28px;
+            height: 28px;
+            border-radius: 10px;
             background: rgba(255,255,255,0.15);
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .notification-content { flex: 1; font-size: 0.8rem; font-weight: 500; }
-        .notification-close { cursor: pointer; opacity: 0.6; }
+        .notification-content { flex: 1; font-size: 0.75rem; font-weight: 500; }
+        .notification-close { cursor: pointer; opacity: 0.6; font-size: 0.7rem; }
+        
+        @media (max-width: 400px) {
+            .logo span { font-size: 1rem; }
+            .key-link { max-width: 120px; }
+            .stats-grid { gap: 6px; }
+            .stat-item { padding: 6px; }
+        }
     </style>
 </head>
 <body>
-    <!-- КРУТОЙ СПЛЕШ-ЭКРАН -->
     <div class="splash-screen" id="splashScreen">
         <div class="splash-content">
             <div class="splash-logo"><i class="fas fa-shield-alt"></i></div>
@@ -652,8 +644,7 @@
     </div>
 
     <div class="mobile-container" id="appContainer">
-        <!-- небольшое пространство сверху -->
-        <div class="status-bar-spacer"></div>
+        <div class="safe-top"></div>
         
         <div class="header">
             <div class="logo">
@@ -691,11 +682,11 @@
                 <div class="stats-grid">
                     <div class="stat-item">
                         <div class="stat-value" id="usedGb">0.00</div>
-                        <div class="stat-label">GB использовано</div>
+                        <div class="stat-label">GB</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value" id="sessionTime">00:00</div>
-                        <div class="stat-label">Время сессии</div>
+                        <div class="stat-label">Сессия</div>
                     </div>
                 </div>
                 <div class="action-buttons">
@@ -706,19 +697,18 @@
             <div class="keys-section">
                 <div class="section-title">
                     <span><i class="fas fa-key"></i> Мои ключи</span>
-                    <button class="add-key-btn" id="addKeyBtn"><i class="fas fa-plus-circle"></i> Добавить ключ</button>
+                    <button class="add-key-btn" id="addKeyBtn"><i class="fas fa-plus-circle"></i> Добавить</button>
                 </div>
                 <div class="keys-list" id="keysList"></div>
             </div>
         </div>
         <div class="footer-note">
-            <i class="fas fa-shield-alt"></i> Shift Shield — твой киберщит в интернете
+            <i class="fas fa-shield-alt"></i> Shift Shield — твой киберщит
         </div>
     </div>
 
     <div class="notification-container" id="notificationContainer"></div>
 
-    <!-- Модалка для ключа -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <h3><i class="fas fa-key"></i> Добавить ключ</h3>
@@ -730,7 +720,6 @@
         </div>
     </div>
 
-    <!-- Модалка настроек -->
     <div class="modal-overlay" id="settingsModal">
         <div class="modal">
             <h3><i class="fas fa-sliders-h"></i> Настройки</h3>
@@ -739,11 +728,11 @@
                 <div class="toggle-switch" id="themeToggle"></div>
             </div>
             <div class="settings-item">
-                <span class="settings-label"><i class="fas fa-wifi"></i> Полный оффлайн</span>
+                <span class="settings-label"><i class="fas fa-wifi"></i> Оффлайн режим</span>
                 <div class="toggle-switch" id="offlineToggle"></div>
             </div>
             <div class="settings-item">
-                <span class="settings-label"><i class="fas fa-headset"></i> Техподдержка</span>
+                <span class="settings-label"><i class="fas fa-headset"></i> Поддержка</span>
                 <a href="https://t.me/shiftvpnsup" target="_blank" class="support-link">@shiftvpnsup <i class="fas fa-external-link-alt"></i></a>
             </div>
         </div>
@@ -751,15 +740,14 @@
 
     <script>
         (function() {
-            // КРУТОЙ СПЛЕШ-ЭКРАН (3-5 секунд)
+            // Сплеш-экран
             const splashScreen = document.getElementById('splashScreen');
             const appContainer = document.getElementById('appContainer');
-            const splashDuration = Math.floor(Math.random() * (5000 - 3000 + 1) + 3000);
+            
             setTimeout(() => {
-                splashScreen.style.opacity = '0';
-                splashScreen.style.visibility = 'hidden';
+                splashScreen.classList.add('hidden');
                 appContainer.classList.add('loaded');
-            }, splashDuration);
+            }, 2500);
 
             // Тема
             const themeToggle = document.getElementById('themeToggle');
@@ -784,15 +772,25 @@
                 offlineMode = !offlineMode;
                 localStorage.setItem('shiftShieldOffline', offlineMode);
                 offlineToggle.classList.toggle('active', offlineMode);
-                showNotification('Оффлайн режим', offlineMode ? 'Сеть отключена (демо)' : 'Сеть включена', 'info');
+                showNotification('Оффлайн режим', offlineMode ? 'Сеть отключена' : 'Сеть включена', 'info');
             });
 
-            // Уведомления с правильным таймингом
+            // Уведомления
             const notificationContainer = document.getElementById('notificationContainer');
-            let activeNotifications = [];
+            let currentNotification = null;
+            let currentTimeout = null;
             
             function showNotification(title, message, type = 'info') {
-                const duration = 2800;
+                const duration = 2500;
+                if (currentNotification) {
+                    currentNotification.classList.remove('show');
+                    setTimeout(() => {
+                        if (currentNotification && currentNotification.parentElement) {
+                            currentNotification.remove();
+                        }
+                    }, 200);
+                    if (currentTimeout) clearTimeout(currentTimeout);
+                }
                 const notif = document.createElement('div');
                 notif.className = 'notification';
                 let iconClass = 'fa-shield-alt', iconColor = '#ffffff';
@@ -805,22 +803,23 @@
                     <div class="notification-close"><i class="fas fa-times"></i></div>
                 `;
                 notificationContainer.appendChild(notif);
+                currentNotification = notif;
                 setTimeout(() => notif.classList.add('show'), 10);
-                
-                const closeNotif = () => {
+                notif.querySelector('.notification-close').onclick = () => {
                     notif.classList.remove('show');
-                    setTimeout(() => {
-                        if (notif.parentElement) notif.remove();
-                        activeNotifications = activeNotifications.filter(n => n !== notif);
-                    }, 300);
+                    setTimeout(() => notif.remove(), 200);
+                    if (currentTimeout) clearTimeout(currentTimeout);
+                    if (currentNotification === notif) currentNotification = null;
                 };
-                
-                notif.querySelector('.notification-close').onclick = closeNotif;
-                activeNotifications.push(notif);
-                setTimeout(closeNotif, duration);
+                currentTimeout = setTimeout(() => {
+                    if (notif && notif.parentElement) {
+                        notif.classList.remove('show');
+                        setTimeout(() => notif.remove(), 200);
+                        if (currentNotification === notif) currentNotification = null;
+                    }
+                }, duration);
             }
 
-            // Данные
             const ALL_KEYS = [
                 "https://connect.shiftshield/germany/sub/NjYyNjU0NTA4MiwxNzczNTM5MTU5taH5BRt3Ac",
                 "https://connect.shiftshield/netherlands/sub/NjYyNjU0NTA4MiwxNzczNTM5MTU5taH5BRt3Ac",
@@ -875,8 +874,8 @@
             function updateMapPin(cc, zoomIn = false) {
                 const coords = countryCoords[cc] || { lat: 51, lng: 10 };
                 if (map && marker) {
-                    const targetZoom = zoomIn ? 8 : 5;
-                    map.flyTo([coords.lat, coords.lng], targetZoom, { duration: 1.2 });
+                    const targetZoom = zoomIn ? 7 : 5;
+                    map.flyTo([coords.lat, coords.lng], targetZoom, { duration: 1.0 });
                     marker.setLatLng([coords.lat, coords.lng]);
                     const el = marker.getElement();
                     if (el) { el.style.transform = 'scale(1.5)'; setTimeout(() => { if(el) el.style.transform = 'scale(1)'; }, 300); }
@@ -884,7 +883,7 @@
             }
             function updateUI() {
                 if (keys.length === 0) {
-                    keysListEl.innerHTML = '<div style="text-align:center;padding:30px;color:#9aa6bb;"><i class="fas fa-shield-alt"></i><br>Нет ключей<br>нажми «Добавить ключ»</div>';
+                    keysListEl.innerHTML = '<div style="text-align:center;padding:20px;color:#9aa6bb;"><i class="fas fa-shield-alt"></i><br>Нет ключей<br>нажми «Добавить»</div>';
                     activeKeyIndex = -1; led.classList.add('inactive'); statusTextSpan.innerText = 'Нет ключей'; ipDisplaySpan.innerText = '— . — . — . —'; toggleBtn.disabled = true;
                     return;
                 }
@@ -893,7 +892,7 @@
                 keys.forEach((k, idx) => {
                     const div = document.createElement('div');
                     div.className = `key-item ${idx === activeKeyIndex ? 'active' : ''}`;
-                    div.innerHTML = `<div class="key-info"><span class="key-flag">${k.flag}</span><div class="key-details"><div class="key-country">${k.countryName}</div><div class="key-link">${k.fullUrl.substring(0,45)}...</div></div></div><div class="key-status-badge">${idx === activeKeyIndex ? (isActive ? 'Активен' : 'Выбран') : 'Доступен'}</div>`;
+                    div.innerHTML = `<div class="key-info"><span class="key-flag">${k.flag}</span><div class="key-details"><div class="key-country">${k.countryName}</div><div class="key-link">${k.fullUrl.substring(0,40)}...</div></div></div><div class="key-status-badge">${idx === activeKeyIndex ? (isActive ? 'Активен' : 'Выбран') : 'Доступен'}</div>`;
                     div.onclick = () => {
                         if (isActive) { showNotification('Действие заблокировано', 'Сначала отключи защиту', 'warning'); return; }
                         activeKeyIndex = idx; updateUI(); updateMapPin(keys[activeKeyIndex].country, false); showNotification('Страна выбрана', keys[activeKeyIndex].countryName, 'success');
@@ -903,7 +902,7 @@
                 if (activeKeyIndex >= 0 && isActive) {
                     led.classList.remove('inactive'); statusTextSpan.innerText = 'Активен'; toggleBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Отключиться'; ipDisplaySpan.innerText = keys[activeKeyIndex].ip; showMarker(); mapOverlay.classList.add('hidden');
                 } else if (activeKeyIndex >= 0 && !isActive) {
-                    led.classList.add('inactive'); statusTextSpan.innerText = 'Готов к подключению'; toggleBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Подключиться'; ipDisplaySpan.innerText = '— . — . — . —'; hideMarker(); mapOverlay.classList.remove('hidden');
+                    led.classList.add('inactive'); statusTextSpan.innerText = 'Готов'; toggleBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Подключиться'; ipDisplaySpan.innerText = '— . — . — . —'; hideMarker(); mapOverlay.classList.remove('hidden');
                 }
             }
             function startSessionStats() {
@@ -921,7 +920,7 @@
                 if (activeKeyIndex < 0) { showNotification('Ошибка', 'Сначала выбери ключ', 'error'); return; }
                 if (!isActive) {
                     vpnLoading.classList.add('active');
-                    await new Promise(r => setTimeout(r, 1800));
+                    await new Promise(r => setTimeout(r, 1600));
                     isActive = true; usedBytes = 0; startSessionStats();
                     const key = keys[activeKeyIndex];
                     key.ip = generateRandomIP(key.country);
@@ -936,15 +935,15 @@
                     sessionInterval = null;
                     sessionTimeSpan.innerText = '00:00'; usedGbSpan.innerText = '0.00';
                     updateUI();
-                    showNotification('Защита отключена', 'Ваше соединение больше не защищено', 'off');
+                    showNotification('Защита отключена', 'Соединение не защищено', 'off');
                 }
             }
             function addKeyFromModal() {
                 const url = keyInput.value.trim();
                 if (!url) { showNotification('Ошибка', 'Введите ключ', 'error'); return; }
                 const parsed = parseKey(url);
-                if (!parsed) { showNotification('Ошибка', 'Неверный формат ключа', 'error'); return; }
-                if (keys.some(k => k.fullUrl === url)) { showNotification('Ошибка', 'Такой ключ уже есть', 'error'); return; }
+                if (!parsed) { showNotification('Ошибка', 'Неверный формат', 'error'); return; }
+                if (keys.some(k => k.fullUrl === url)) { showNotification('Ошибка', 'Ключ уже есть', 'error'); return; }
                 keys.push(parsed);
                 if (activeKeyIndex === -1) activeKeyIndex = 0;
                 updateUI(); updateMapPin(keys[activeKeyIndex].country, false);
@@ -974,6 +973,8 @@
             settingsModal.onclick = (e) => { if (e.target === settingsModal) settingsModal.classList.remove('active'); };
             
             initMap(); loadAllKeys(); hideMarker(); mapOverlay.classList.remove('hidden');
+            
+            setTimeout(() => { if (map) map.invalidateSize(); }, 100);
         })();
     </script>
 </body>
