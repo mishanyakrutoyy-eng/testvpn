@@ -3,7 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Shift Shield · Security</title>
+    <title>Shift Shield · VPN</title>
+    
+    <!-- PWA для добавления на главный экран -->
+    <link rel="manifest" href="data:application/manifest+json,{
+        \"name\": \"Shift Shield\",
+        \"short_name\": \"ShiftShield\",
+        \"description\": \"Твой киберщит в интернете\",
+        \"start_url\": \".\",
+        \"display\": \"standalone\",
+        \"theme_color\": \"#1a1f2e\",
+        \"background_color\": \"#ffffff\",
+        \"icons\": [{
+            \"src\": \"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1f2e'/%3E%3Cpath d='M50,20 L70,35 L70,55 Q50,75 30,55 L30,35 L50,20Z' fill='white' stroke='none'/%3E%3C/svg%3E\",
+            \"sizes\": \"any\",
+            \"type\": \"image/svg+xml\",
+            \"purpose\": \"any maskable\"
+        }]
+    }">
+    
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1f2e'/%3E%3Cpath d='M50,20 L70,35 L70,55 Q50,75 30,55 L30,35 L50,20Z' fill='white' stroke='none'/%3E%3C/svg%3E">
+    <meta name="theme-color" content="#1a1f2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Shift Shield">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -28,7 +52,6 @@
             align-items: center;
         }
 
-        /* Сплеш-загрузка */
         .splash-screen {
             position: fixed;
             top: 0;
@@ -59,7 +82,6 @@
         .splash-logo i {
             font-size: 2.5rem;
             color: white;
-            transform: rotate(45deg);
         }
         .splash-text {
             font-weight: 600;
@@ -142,13 +164,15 @@
             justify-content: center;
             font-size: 1.2rem;
         }
-        .logo-icon i { transform: rotate(45deg); }
+        .logo-icon i {
+            font-size: 1.1rem;
+        }
         .logo span {
             background: linear-gradient(135deg, #1a1f2e 0%, #2d3a4e 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .security-badge {
+        .vpn-badge {
             font-size: 0.7rem;
             font-weight: 600;
             color: #4a5b7a;
@@ -189,7 +213,9 @@
             color: white;
             font-size: 12px;
         }
-        .custom-marker i { transform: rotate(45deg); }
+        .custom-marker i {
+            font-size: 12px;
+        }
 
         .map-overlay {
             position: absolute;
@@ -221,7 +247,6 @@
             color: #5b6a84;
         }
 
-        /* Новая красивая загрузка при подключении */
         .vpn-loading-overlay {
             position: absolute;
             top: 0;
@@ -257,7 +282,6 @@
         .loading-shield i {
             font-size: 2.5rem;
             color: white;
-            transform: rotate(45deg);
         }
         .loading-text {
             color: white;
@@ -439,37 +463,6 @@
             font-weight: 500;
         }
 
-        /* Маркетинговый блок */
-        .why-shift {
-            background: linear-gradient(135deg, #f0f3fa 0%, #e8edf5 100%);
-            border-radius: 24px;
-            padding: 16px;
-            margin-top: 16px;
-            margin-bottom: 8px;
-        }
-        .why-title {
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .why-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: 0.75rem;
-            color: #2c3548;
-            line-height: 1.4;
-        }
-        .why-item i {
-            width: 20px;
-            color: #1a1f2e;
-            margin-top: 2px;
-        }
-
         .footer-note {
             text-align: center;
             font-size: 0.6rem;
@@ -572,7 +565,7 @@
 <body>
     <div class="splash-screen" id="splashScreen">
         <div class="splash-content">
-            <div class="splash-logo"><i class="fas fa-arrow-right"></i></div>
+            <div class="splash-logo"><i class="fas fa-shield-alt"></i></div>
             <div class="splash-text">Shift Shield</div>
             <div class="splash-dots"><span></span><span></span><span></span></div>
         </div>
@@ -581,20 +574,20 @@
     <div class="mobile-container" id="appContainer">
         <div class="header">
             <div class="logo">
-                <div class="logo-icon"><i class="fas fa-arrow-right"></i></div>
+                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
                 <span>Shift Shield</span>
             </div>
-            <div class="security-badge"><i class="fas fa-shield-halved"></i> Security</div>
+            <div class="vpn-badge"><i class="fas fa-shield-alt"></i> VPN</div>
         </div>
 
         <div class="map-wrapper">
             <div id="map"></div>
             <div class="map-overlay" id="mapOverlay">
-                <i class="fas fa-plug"></i>
+                <i class="fas fa-shield-alt"></i>
                 <span>Вы не подключены</span>
             </div>
             <div class="vpn-loading-overlay" id="vpnLoading">
-                <div class="loading-shield"><i class="fas fa-arrow-right"></i></div>
+                <div class="loading-shield"><i class="fas fa-shield-alt"></i></div>
                 <div class="loading-text">Установка защищенного канала</div>
                 <div class="loading-dots"><span></span><span></span><span></span></div>
             </div>
@@ -620,7 +613,7 @@
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button class="action-btn" id="toggleBtn"><i class="fas fa-shield-halved"></i> Подключиться</button>
+                    <button class="action-btn" id="toggleBtn"><i class="fas fa-shield-alt"></i> Подключиться</button>
                 </div>
             </div>
 
@@ -631,20 +624,9 @@
                 </div>
                 <div class="keys-list" id="keysList"></div>
             </div>
-
-            <!-- Маркетинговый блок -->
-            <div class="why-shift">
-                <div class="why-title"><i class="fas fa-gem"></i> Почему Shift Shield?</div>
-                <div class="why-item"><i class="fas fa-brain"></i> <span><strong>Умная анимация подключения</strong> — каждый раз, когда вы подключаетесь, карта плавно приближается к выбранной точке, создавая ощущение реального перемещения.</span></div>
-                <div class="why-item"><i class="fas fa-shield-alt"></i> <span><strong>Реальная защита, а не просто смена IP</strong> — мы не даём вам менять IP вручную, потому что настоящая безопасность — это стабильное подключение без дырок.</span></div>
-                <div class="why-item"><i class="fas fa-key"></i> <span><strong>Ключи доступа по странам</strong> — вы покупаете доступ к конкретной стране и получаете статичный IP, который не меняется каждые 5 минут. Никаких банов на сервисах.</span></div>
-                <div class="why-item"><i class="fas fa-chart-line"></i> <span><strong>Прозрачная статистика</strong> — вы всегда видите, сколько трафика использовали и сколько времени в сети. Никаких скрытых лимитов.</span></div>
-                <div class="why-item"><i class="fas fa-map-marked-alt"></i> <span><strong>Визуальное погружение</strong> — карта с плавным приближением, маркер с анимацией, красивые уведомления. Вы не просто подключаетесь к VPN — вы перемещаетесь.</span></div>
-                <div class="why-item"><i class="fas fa-infinity"></i> <span><strong>Один ключ = вечный доступ</strong> — никаких подписок, никаких ежемесячных списаний. Купил ключ — пользуешься навсегда.</span></div>
-            </div>
         </div>
         <div class="footer-note">
-            <i class="fas fa-map-pin"></i> Shift Shield — твой киберщит в интернете
+            <i class="fas fa-shield-alt"></i> Shift Shield — твой киберщит в интернете
         </div>
     </div>
 
@@ -663,7 +645,6 @@
 
     <script>
         (function() {
-            // Сплеш
             const splashScreen = document.getElementById('splashScreen');
             const appContainer = document.getElementById('appContainer');
             const splashDuration = Math.floor(Math.random() * (5000 - 2000 + 1) + 2000);
@@ -696,13 +677,12 @@
                 }
                 const notif = document.createElement('div');
                 notif.className = 'notification';
-                let iconClass = '', iconColor = '';
-                if (type === 'success') { iconClass = 'fas fa-check-circle'; iconColor = '#2b8c4a'; }
-                else if (type === 'error') { iconClass = 'fas fa-times-circle'; iconColor = '#e74c3c'; }
-                else if (type === 'off') { iconClass = 'fas fa-power-off'; iconColor = '#e74c3c'; }
-                else { iconClass = 'fas fa-shield-halved'; iconColor = '#1a1f2e'; }
+                let iconClass = 'fa-shield-alt', iconColor = '#ffffff';
+                if (type === 'success') iconColor = '#2b8c4a';
+                else if (type === 'error') iconColor = '#e74c3c';
+                else if (type === 'off') iconColor = '#e74c3c';
                 notif.innerHTML = `
-                    <div class="notification-icon" style="background: ${iconColor}20;"><i class="${iconClass}" style="color: ${iconColor};"></i></div>
+                    <div class="notification-icon" style="background: ${iconColor}20;"><i class="fas ${iconClass}" style="color: ${iconColor};"></i></div>
                     <div class="notification-content"><div style="font-weight: 600;">${title}</div><div style="font-size: 0.7rem;">${message}</div></div>
                     <div class="notification-close" style="cursor:pointer;"><i class="fas fa-times"></i></div>
                 `;
@@ -760,7 +740,7 @@
                 if (map) return;
                 map = L.map('map', { center: [51.1657, 10.4515], zoom: 4.5, zoomControl: false, dragging: false, scrollWheelZoom: false, touchZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, tap: false, attributionControl: false });
                 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '', subdomains: 'abcd' }).addTo(map);
-                const icon = L.divIcon({ className: 'custom-marker', html: '<i class="fas fa-arrow-right"></i>', iconSize: [28,28], iconAnchor: [14,14] });
+                const icon = L.divIcon({ className: 'custom-marker', html: '<i class="fas fa-shield-alt"></i>', iconSize: [28,28], iconAnchor: [14,14] });
                 marker = L.marker([51.1657,10.4515], { icon }).addTo(map);
                 hideMarker();
             }
@@ -778,7 +758,7 @@
             }
             function updateUI() {
                 if (keys.length === 0) {
-                    keysListEl.innerHTML = '<div style="text-align:center;padding:30px;color:#9aa6bb;"><i class="fas fa-key"></i><br>Нет ключей<br>нажми «Добавить ключ»</div>';
+                    keysListEl.innerHTML = '<div style="text-align:center;padding:30px;color:#9aa6bb;"><i class="fas fa-shield-alt"></i><br>Нет ключей<br>нажми «Добавить ключ»</div>';
                     activeKeyIndex = -1; led.classList.add('inactive'); statusTextSpan.innerText = 'Нет ключей'; ipDisplaySpan.innerText = '— . — . — . —'; toggleBtn.disabled = true;
                     return;
                 }
@@ -795,9 +775,9 @@
                     keysListEl.appendChild(div);
                 });
                 if (activeKeyIndex >= 0 && isActive) {
-                    led.classList.remove('inactive'); statusTextSpan.innerText = 'Активен'; toggleBtn.innerHTML = '<i class="fas fa-power-off"></i> Отключиться'; ipDisplaySpan.innerText = keys[activeKeyIndex].ip; showMarker(); mapOverlay.classList.add('hidden');
+                    led.classList.remove('inactive'); statusTextSpan.innerText = 'Активен'; toggleBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Отключиться'; ipDisplaySpan.innerText = keys[activeKeyIndex].ip; showMarker(); mapOverlay.classList.add('hidden');
                 } else if (activeKeyIndex >= 0 && !isActive) {
-                    led.classList.add('inactive'); statusTextSpan.innerText = 'Готов к подключению'; toggleBtn.innerHTML = '<i class="fas fa-shield-halved"></i> Подключиться'; ipDisplaySpan.innerText = '— . — . — . —'; hideMarker(); mapOverlay.classList.remove('hidden');
+                    led.classList.add('inactive'); statusTextSpan.innerText = 'Готов к подключению'; toggleBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Подключиться'; ipDisplaySpan.innerText = '— . — . — . —'; hideMarker(); mapOverlay.classList.remove('hidden');
                 }
             }
             function startSessionStats() {
