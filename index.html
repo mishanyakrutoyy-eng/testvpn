@@ -40,7 +40,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            transition: opacity 0.5s ease;
         }
         .splash-content {
             text-align: center;
@@ -65,7 +65,6 @@
             font-weight: 600;
             font-size: 1.2rem;
             color: #1a1f2e;
-            letter-spacing: -0.3px;
         }
         .splash-dots {
             display: flex;
@@ -123,7 +122,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .logo {
@@ -157,7 +155,6 @@
             background: #f0f3fa;
             padding: 5px 12px;
             border-radius: 30px;
-            letter-spacing: 0.3px;
         }
 
         .map-wrapper {
@@ -224,40 +221,73 @@
             color: #5b6a84;
         }
 
-        .loading-overlay {
+        /* Новая красивая загрузка при подключении */
+        .vpn-loading-overlay {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(2px);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
             z-index: 20;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 12px;
+            gap: 20px;
             opacity: 0;
             visibility: hidden;
-            transition: 0.2s;
+            transition: all 0.3s ease;
         }
-        .loading-overlay.active {
+        .vpn-loading-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-        .loading-spinner-circle {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.8s linear infinite;
+        .loading-shield {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: loadingPulse 1.2s ease-in-out infinite;
         }
-        .loading-overlay span {
+        .loading-shield i {
+            font-size: 2.5rem;
             color: white;
-            font-size: 0.8rem;
+            transform: rotate(45deg);
+        }
+        .loading-text {
+            color: white;
+            font-size: 0.9rem;
             font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .loading-dots {
+            display: flex;
+            gap: 6px;
+        }
+        .loading-dots span {
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: loadingDot 1s ease-in-out infinite;
+        }
+        .loading-dots span:nth-child(1) { animation-delay: 0s; }
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes loadingPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        @keyframes loadingDot {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
         }
 
         .content {
@@ -301,7 +331,6 @@
             display: flex;
             gap: 12px;
             margin: 12px 0;
-            flex-wrap: wrap;
         }
         .stat-item {
             flex: 1;
@@ -321,33 +350,25 @@
             margin-top: 4px;
         }
         .action-buttons {
-            display: flex;
-            gap: 12px;
             margin-top: 12px;
         }
         .action-btn {
-            flex: 1;
-            background: white;
-            border: 1.5px solid #e2e8f0;
-            color: #1a1f2e;
-            padding: 10px 0;
+            width: 100%;
+            background: #1a1f2e;
+            border: none;
+            color: white;
+            padding: 12px 0;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
             transition: 0.1s;
         }
-        .action-btn.primary {
-            background: #1a1f2e;
-            border-color: #1a1f2e;
-            color: white;
-        }
         .action-btn:active { transform: scale(0.97); }
-        .action-btn:disabled { opacity: 0.4; pointer-events: none; }
 
         .keys-section {
             margin-top: 8px;
@@ -418,13 +439,44 @@
             font-weight: 500;
         }
 
+        /* Маркетинговый блок */
+        .why-shift {
+            background: linear-gradient(135deg, #f0f3fa 0%, #e8edf5 100%);
+            border-radius: 24px;
+            padding: 16px;
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+        .why-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .why-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 0.75rem;
+            color: #2c3548;
+            line-height: 1.4;
+        }
+        .why-item i {
+            width: 20px;
+            color: #1a1f2e;
+            margin-top: 2px;
+        }
+
         .footer-note {
             text-align: center;
             font-size: 0.6rem;
             color: #9aa6bb;
             padding: 16px;
             border-top: 1px solid #f0f2f8;
-            margin-top: 16px;
+            margin-top: 12px;
         }
 
         .modal-overlay {
@@ -479,7 +531,6 @@
         .modal-btn.cancel { background: #f0f2f8; color: #1a1f2e; }
         .modal-btn.confirm { background: #1a1f2e; color: white; }
 
-        /* Уведомления */
         .notification-container {
             position: fixed;
             top: 80px;
@@ -498,13 +549,10 @@
             align-items: center;
             gap: 12px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.1);
             transform: translateX(120%);
             transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-        .notification.show {
-            transform: translateX(0);
-        }
+        .notification.show { transform: translateX(0); }
         .notification-icon {
             width: 32px;
             height: 32px;
@@ -513,38 +561,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
         }
         .notification-content {
             flex: 1;
             font-size: 0.8rem;
             font-weight: 500;
-            line-height: 1.3;
         }
-        .notification-close {
-            opacity: 0.6;
-            font-size: 0.7rem;
-            cursor: pointer;
-            pointer-events: auto;
-            transition: opacity 0.2s;
-        }
-        .notification-close:hover { opacity: 1; }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
     <div class="splash-screen" id="splashScreen">
         <div class="splash-content">
-            <div class="splash-logo">
-                <i class="fas fa-arrow-right"></i>
-            </div>
+            <div class="splash-logo"><i class="fas fa-arrow-right"></i></div>
             <div class="splash-text">Shift Shield</div>
-            <div class="splash-dots">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div class="splash-dots"><span></span><span></span><span></span></div>
         </div>
     </div>
 
@@ -557,15 +587,16 @@
             <div class="security-badge"><i class="fas fa-shield-halved"></i> Security</div>
         </div>
 
-        <div class="map-wrapper" id="mapWrapper">
+        <div class="map-wrapper">
             <div id="map"></div>
             <div class="map-overlay" id="mapOverlay">
                 <i class="fas fa-plug"></i>
                 <span>Вы не подключены</span>
             </div>
-            <div class="loading-overlay" id="loadingOverlay">
-                <div class="loading-spinner-circle"></div>
-                <span>Установка защищенного соединения...</span>
+            <div class="vpn-loading-overlay" id="vpnLoading">
+                <div class="loading-shield"><i class="fas fa-arrow-right"></i></div>
+                <div class="loading-text">Установка защищенного канала</div>
+                <div class="loading-dots"><span></span><span></span><span></span></div>
             </div>
         </div>
 
@@ -589,8 +620,7 @@
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button class="action-btn primary" id="toggleBtn"><i class="fas fa-shield-halved"></i> Подключить</button>
-                    <button class="action-btn" id="rotateIpBtn" disabled><i class="fas fa-arrows-spin"></i> Сменить IP</button>
+                    <button class="action-btn" id="toggleBtn"><i class="fas fa-shield-halved"></i> Подключиться</button>
                 </div>
             </div>
 
@@ -600,6 +630,17 @@
                     <button class="add-key-btn" id="addKeyBtn"><i class="fas fa-plus-circle"></i> Добавить ключ</button>
                 </div>
                 <div class="keys-list" id="keysList"></div>
+            </div>
+
+            <!-- Маркетинговый блок -->
+            <div class="why-shift">
+                <div class="why-title"><i class="fas fa-gem"></i> Почему Shift Shield?</div>
+                <div class="why-item"><i class="fas fa-brain"></i> <span><strong>Умная анимация подключения</strong> — каждый раз, когда вы подключаетесь, карта плавно приближается к выбранной точке, создавая ощущение реального перемещения.</span></div>
+                <div class="why-item"><i class="fas fa-shield-alt"></i> <span><strong>Реальная защита, а не просто смена IP</strong> — мы не даём вам менять IP вручную, потому что настоящая безопасность — это стабильное подключение без дырок.</span></div>
+                <div class="why-item"><i class="fas fa-key"></i> <span><strong>Ключи доступа по странам</strong> — вы покупаете доступ к конкретной стране и получаете статичный IP, который не меняется каждые 5 минут. Никаких банов на сервисах.</span></div>
+                <div class="why-item"><i class="fas fa-chart-line"></i> <span><strong>Прозрачная статистика</strong> — вы всегда видите, сколько трафика использовали и сколько времени в сети. Никаких скрытых лимитов.</span></div>
+                <div class="why-item"><i class="fas fa-map-marked-alt"></i> <span><strong>Визуальное погружение</strong> — карта с плавным приближением, маркер с анимацией, красивые уведомления. Вы не просто подключаетесь к VPN — вы перемещаетесь.</span></div>
+                <div class="why-item"><i class="fas fa-infinity"></i> <span><strong>Один ключ = вечный доступ</strong> — никаких подписок, никаких ежемесячных списаний. Купил ключ — пользуешься навсегда.</span></div>
             </div>
         </div>
         <div class="footer-note">
@@ -622,11 +663,10 @@
 
     <script>
         (function() {
-            // Сплеш-загрузка (2-5 сек)
+            // Сплеш
             const splashScreen = document.getElementById('splashScreen');
             const appContainer = document.getElementById('appContainer');
             const splashDuration = Math.floor(Math.random() * (5000 - 2000 + 1) + 2000);
-            
             setTimeout(() => {
                 splashScreen.style.opacity = '0';
                 setTimeout(() => {
@@ -635,7 +675,6 @@
                 }, 500);
             }, splashDuration);
 
-            // ---- КЛЮЧИ ДЛЯ ВСЕХ СТРАН ----
             const ALL_KEYS = [
                 "https://connect.shiftshield/germany/sub/NjYyNjU0NTA4MiwxNzczNTM5MTU5taH5BRt3Ac",
                 "https://connect.shiftshield/netherlands/sub/NjYyNjU0NTA4MiwxNzczNTM5MTU5taH5BRt3Ac",
@@ -645,75 +684,39 @@
                 "https://connect.shiftshield/uk/sub/NjYyNjU0NTA4MiwxNzczNTM5MTU5taH5BRt3Ac"
             ];
 
-            // Уведомления (2-3 секунды)
             const notificationContainer = document.getElementById('notificationContainer');
-            let currentNotification = null;
-            let currentTimeout = null;
+            let currentNotification = null, currentTimeout = null;
             
-            function getRandomDuration() {
-                return Math.floor(Math.random() * (3000 - 2000 + 1) + 2000);
-            }
-            
-            function showNotification(title, message, type = 'info', customDuration = null) {
-                const duration = customDuration || getRandomDuration();
-                
+            function showNotification(title, message, type = 'info') {
+                const duration = Math.floor(Math.random() * (3000 - 2000 + 1) + 2000);
                 if (currentNotification) {
                     currentNotification.classList.remove('show');
-                    setTimeout(() => {
-                        if (currentNotification && currentNotification.parentElement) {
-                            currentNotification.remove();
-                        }
-                    }, 200);
+                    setTimeout(() => currentNotification?.remove(), 200);
                     if (currentTimeout) clearTimeout(currentTimeout);
                 }
-                
                 const notif = document.createElement('div');
                 notif.className = 'notification';
-                
-                let iconClass = '';
-                let iconColor = '';
-                if (type === 'success') {
-                    iconClass = 'fas fa-check-circle';
-                    iconColor = '#2b8c4a';
-                } else if (type === 'error') {
-                    iconClass = 'fas fa-times-circle';
-                    iconColor = '#e74c3c';
-                } else if (type === 'warning') {
-                    iconClass = 'fas fa-hourglass-half';
-                    iconColor = '#e67e22';
-                } else if (type === 'off') {
-                    iconClass = 'fas fa-power-off';
-                    iconColor = '#e74c3c';
-                } else {
-                    iconClass = 'fas fa-shield-halved';
-                    iconColor = '#1a1f2e';
-                }
-                
+                let iconClass = '', iconColor = '';
+                if (type === 'success') { iconClass = 'fas fa-check-circle'; iconColor = '#2b8c4a'; }
+                else if (type === 'error') { iconClass = 'fas fa-times-circle'; iconColor = '#e74c3c'; }
+                else if (type === 'off') { iconClass = 'fas fa-power-off'; iconColor = '#e74c3c'; }
+                else { iconClass = 'fas fa-shield-halved'; iconColor = '#1a1f2e'; }
                 notif.innerHTML = `
-                    <div class="notification-icon" style="background: ${iconColor}20;">
-                        <i class="${iconClass}" style="color: ${iconColor};"></i>
-                    </div>
-                    <div class="notification-content">
-                        <div style="font-weight: 600;">${title}</div>
-                        <div style="font-size: 0.7rem; opacity: 0.8;">${message}</div>
-                    </div>
-                    <div class="notification-close"><i class="fas fa-times"></i></div>
+                    <div class="notification-icon" style="background: ${iconColor}20;"><i class="${iconClass}" style="color: ${iconColor};"></i></div>
+                    <div class="notification-content"><div style="font-weight: 600;">${title}</div><div style="font-size: 0.7rem;">${message}</div></div>
+                    <div class="notification-close" style="cursor:pointer;"><i class="fas fa-times"></i></div>
                 `;
-                
                 notificationContainer.appendChild(notif);
                 currentNotification = notif;
                 setTimeout(() => notif.classList.add('show'), 10);
-                
-                const closeBtn = notif.querySelector('.notification-close');
-                closeBtn.addEventListener('click', () => {
+                notif.querySelector('.notification-close').onclick = () => {
                     notif.classList.remove('show');
                     setTimeout(() => notif.remove(), 200);
                     if (currentTimeout) clearTimeout(currentTimeout);
                     if (currentNotification === notif) currentNotification = null;
-                });
-                
+                };
                 currentTimeout = setTimeout(() => {
-                    if (notif && notif.parentElement) {
+                    if (notif?.parentElement) {
                         notif.classList.remove('show');
                         setTimeout(() => notif.remove(), 200);
                         if (currentNotification === notif) currentNotification = null;
@@ -724,235 +727,112 @@
             function parseKey(url) {
                 const match = url.match(/https:\/\/connect\.shiftshield\/([a-z]+)\/sub\/[A-Za-z0-9]+/);
                 if (!match) return null;
-                const countryCode = match[1];
-                const countryNames = {
-                    germany: 'Германия', netherlands: 'Нидерланды', usa: 'США',
-                    canada: 'Канада', japan: 'Япония', uk: 'Великобритания'
-                };
-                const flags = {
-                    germany: '🇩🇪', netherlands: '🇳🇱', usa: '🇺🇸',
-                    canada: '🇨🇦', japan: '🇯🇵', uk: '🇬🇧'
-                };
-                if (!countryNames[countryCode]) return null;
-                return {
-                    fullUrl: url,
-                    country: countryCode,
-                    countryName: countryNames[countryCode],
-                    flag: flags[countryCode],
-                    ip: generateRandomIP(countryCode)
-                };
+                const cc = match[1];
+                const names = { germany:'Германия', netherlands:'Нидерланды', usa:'США', canada:'Канада', japan:'Япония', uk:'Великобритания' };
+                const flags = { germany:'🇩🇪', netherlands:'🇳🇱', usa:'🇺🇸', canada:'🇨🇦', japan:'🇯🇵', uk:'🇬🇧' };
+                if (!names[cc]) return null;
+                return { fullUrl: url, country: cc, countryName: names[cc], flag: flags[cc], ip: generateRandomIP(cc) };
             }
-
-            function generateRandomIP(countryCode) {
+            function generateRandomIP(cc) {
                 const pools = {
-                    germany: ['85.214', '87.123', '84.115', '91.64', '80.187'],
-                    netherlands: ['37.97', '38.76', '45.84', '145.45', '89.98'],
-                    usa: ['67.161', '68.123', '69.88', '74.125', '172.217'],
-                    canada: ['24.57', '25.66', '26.44', '70.52', '99.241'],
-                    japan: ['126.15', '127.22', '128.44', '133.55', '157.107'],
-                    uk: ['82.68', '83.77', '84.55', '146.90', '194.73']
+                    germany:['85.214','87.123','84.115','91.64','80.187'],
+                    netherlands:['37.97','38.76','45.84','145.45','89.98'],
+                    usa:['67.161','68.123','69.88','74.125','172.217'],
+                    canada:['24.57','25.66','26.44','70.52','99.241'],
+                    japan:['126.15','127.22','128.44','133.55','157.107'],
+                    uk:['82.68','83.77','84.55','146.90','194.73']
                 };
-                const pool = pools[countryCode] || pools.germany;
-                const prefix = pool[Math.floor(Math.random() * pool.length)];
-                return `${prefix}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+                const p = pools[cc] || pools.germany;
+                return `${p[Math.floor(Math.random()*p.length)]}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
             }
-
             const countryCoords = {
-                germany: { lat: 51.1657, lng: 10.4515 },
-                netherlands: { lat: 52.1326, lng: 5.2913 },
-                usa: { lat: 39.8283, lng: -98.5795 },
-                canada: { lat: 56.1304, lng: -106.3468 },
-                japan: { lat: 36.2048, lng: 138.2529 },
-                uk: { lat: 55.3781, lng: -3.4360 }
+                germany:{lat:51.1657,lng:10.4515}, netherlands:{lat:52.1326,lng:5.2913},
+                usa:{lat:39.8283,lng:-98.5795}, canada:{lat:56.1304,lng:-106.3468},
+                japan:{lat:36.2048,lng:138.2529}, uk:{lat:55.3781,lng:-3.4360}
             };
-
-            let keys = [];
-            let activeKeyIndex = -1;
-            let isActive = false;
-            let sessionInterval = null;
-            let usedBytes = 0;
-            let map = null;
-            let marker = null;
-
-            const keysListEl = document.getElementById('keysList');
-            const toggleBtn = document.getElementById('toggleBtn');
-            const rotateIpBtn = document.getElementById('rotateIpBtn');
-            const led = document.getElementById('led');
-            const statusTextSpan = document.getElementById('statusText');
-            const ipDisplaySpan = document.getElementById('ipDisplay');
-            const usedGbSpan = document.getElementById('usedGb');
-            const sessionTimeSpan = document.getElementById('sessionTime');
-            const mapOverlay = document.getElementById('mapOverlay');
-            const loadingOverlay = document.getElementById('loadingOverlay');
+            let keys = [], activeKeyIndex = -1, isActive = false, sessionInterval = null, usedBytes = 0, map = null, marker = null;
+            const keysListEl = document.getElementById('keysList'), toggleBtn = document.getElementById('toggleBtn'), led = document.getElementById('led');
+            const statusTextSpan = document.getElementById('statusText'), ipDisplaySpan = document.getElementById('ipDisplay');
+            const usedGbSpan = document.getElementById('usedGb'), sessionTimeSpan = document.getElementById('sessionTime');
+            const mapOverlay = document.getElementById('mapOverlay'), vpnLoading = document.getElementById('vpnLoading');
 
             function initMap() {
                 if (map) return;
-                map = L.map('map', {
-                    center: [51.1657, 10.4515],
-                    zoom: 4.5,
-                    zoomControl: false,
-                    dragging: false,
-                    scrollWheelZoom: false,
-                    touchZoom: false,
-                    doubleClickZoom: false,
-                    boxZoom: false,
-                    keyboard: false,
-                    tap: false,
-                    attributionControl: false
-                });
-                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-                    attribution: '',
-                    subdomains: 'abcd',
-                    maxZoom: 19,
-                    minZoom: 2
-                }).addTo(map);
-                const customIcon = L.divIcon({
-                    className: 'custom-marker',
-                    html: '<i class="fas fa-arrow-right"></i>',
-                    iconSize: [28, 28],
-                    iconAnchor: [14, 14]
-                });
-                marker = L.marker([51.1657, 10.4515], { icon: customIcon }).addTo(map);
+                map = L.map('map', { center: [51.1657, 10.4515], zoom: 4.5, zoomControl: false, dragging: false, scrollWheelZoom: false, touchZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, tap: false, attributionControl: false });
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '', subdomains: 'abcd' }).addTo(map);
+                const icon = L.divIcon({ className: 'custom-marker', html: '<i class="fas fa-arrow-right"></i>', iconSize: [28,28], iconAnchor: [14,14] });
+                marker = L.marker([51.1657,10.4515], { icon }).addTo(map);
                 hideMarker();
             }
-
-            function showMarker() {
-                if (marker && !map.hasLayer(marker)) marker.addTo(map);
-            }
-
-            function hideMarker() {
-                if (marker && map.hasLayer(marker)) map.removeLayer(marker);
-            }
-
-            function updateMapPin(countryCode) {
-                const coords = countryCoords[countryCode] || { lat: 51, lng: 10 };
+            function showMarker() { if (marker && !map.hasLayer(marker)) marker.addTo(map); }
+            function hideMarker() { if (marker && map.hasLayer(marker)) map.removeLayer(marker); }
+            function updateMapPin(cc, zoomIn = false) {
+                const coords = countryCoords[cc] || { lat: 51, lng: 10 };
                 if (map && marker) {
-                    map.flyTo([coords.lat, coords.lng], 5, { duration: 1.0 });
+                    const targetZoom = zoomIn ? 8 : 5;
+                    map.flyTo([coords.lat, coords.lng], targetZoom, { duration: 1.2 });
                     marker.setLatLng([coords.lat, coords.lng]);
                     const el = marker.getElement();
-                    if (el) {
-                        el.style.transform = 'scale(1.5)';
-                        setTimeout(() => { if(el) el.style.transform = 'scale(1)'; }, 300);
-                    }
+                    if (el) { el.style.transform = 'scale(1.5)'; setTimeout(() => { if(el) el.style.transform = 'scale(1)'; }, 300); }
                 }
             }
-
             function updateUI() {
                 if (keys.length === 0) {
-                    keysListEl.innerHTML = '<div style="text-align: center; padding: 30px; color: #9aa6bb; font-size: 0.8rem;"><i class="fas fa-key" style="opacity: 0.5;"></i><br>Нет ключей<br>нажми «Добавить ключ»</div>';
-                    activeKeyIndex = -1;
-                    led.classList.add('inactive');
-                    statusTextSpan.innerText = 'Нет ключей';
-                    ipDisplaySpan.innerText = '— . — . — . —';
-                    toggleBtn.disabled = true;
-                    rotateIpBtn.disabled = true;
+                    keysListEl.innerHTML = '<div style="text-align:center;padding:30px;color:#9aa6bb;"><i class="fas fa-key"></i><br>Нет ключей<br>нажми «Добавить ключ»</div>';
+                    activeKeyIndex = -1; led.classList.add('inactive'); statusTextSpan.innerText = 'Нет ключей'; ipDisplaySpan.innerText = '— . — . — . —'; toggleBtn.disabled = true;
                     return;
                 }
                 toggleBtn.disabled = false;
                 keysListEl.innerHTML = '';
-                keys.forEach((key, idx) => {
+                keys.forEach((k, idx) => {
                     const div = document.createElement('div');
                     div.className = `key-item ${idx === activeKeyIndex ? 'active' : ''}`;
-                    div.innerHTML = `
-                        <div class="key-info">
-                            <span class="key-flag">${key.flag}</span>
-                            <div class="key-details">
-                                <div class="key-country">${key.countryName}</div>
-                                <div class="key-link">${key.fullUrl.substring(0, 45)}...</div>
-                            </div>
-                        </div>
-                        <div class="key-status-badge">${idx === activeKeyIndex ? (isActive ? 'Активен' : 'Выбран') : 'Доступен'}</div>
-                    `;
-                    div.addEventListener('click', () => {
-                        if (isActive) {
-                            showNotification('Действие заблокировано', 'Сначала отключи защиту', 'warning');
-                            return;
-                        }
-                        activeKeyIndex = idx;
-                        updateUI();
-                        if (activeKeyIndex >= 0) {
-                            const coords = countryCoords[keys[activeKeyIndex].country];
-                            if (coords && marker) {
-                                marker.setLatLng([coords.lat, coords.lng]);
-                            }
-                        }
-                        showNotification('Страна выбрана', keys[activeKeyIndex].countryName, 'success');
-                    });
+                    div.innerHTML = `<div class="key-info"><span class="key-flag">${k.flag}</span><div class="key-details"><div class="key-country">${k.countryName}</div><div class="key-link">${k.fullUrl.substring(0,45)}...</div></div></div><div class="key-status-badge">${idx === activeKeyIndex ? (isActive ? 'Активен' : 'Выбран') : 'Доступен'}</div>`;
+                    div.onclick = () => {
+                        if (isActive) { showNotification('Действие заблокировано', 'Сначала отключи защиту', 'warning'); return; }
+                        activeKeyIndex = idx; updateUI(); updateMapPin(keys[activeKeyIndex].country, false); showNotification('Страна выбрана', keys[activeKeyIndex].countryName, 'success');
+                    };
                     keysListEl.appendChild(div);
                 });
-
                 if (activeKeyIndex >= 0 && isActive) {
-                    led.classList.remove('inactive');
-                    statusTextSpan.innerText = 'Активен';
-                    toggleBtn.innerHTML = '<i class="fas fa-power-off"></i> Отключить';
-                    ipDisplaySpan.innerText = keys[activeKeyIndex].ip;
-                    rotateIpBtn.disabled = true;
-                    showMarker();
-                    mapOverlay.classList.add('hidden');
+                    led.classList.remove('inactive'); statusTextSpan.innerText = 'Активен'; toggleBtn.innerHTML = '<i class="fas fa-power-off"></i> Отключиться'; ipDisplaySpan.innerText = keys[activeKeyIndex].ip; showMarker(); mapOverlay.classList.add('hidden');
                 } else if (activeKeyIndex >= 0 && !isActive) {
-                    led.classList.add('inactive');
-                    statusTextSpan.innerText = 'Готов к подключению';
-                    toggleBtn.innerHTML = '<i class="fas fa-shield-halved"></i> Подключить';
-                    ipDisplaySpan.innerText = '— . — . — . —';
-                    rotateIpBtn.disabled = true;
-                    hideMarker();
-                    mapOverlay.classList.remove('hidden');
-                } else {
-                    led.classList.add('inactive');
-                    statusTextSpan.innerText = 'Выбери ключ';
-                    toggleBtn.innerHTML = '<i class="fas fa-shield-halved"></i> Подключить';
-                    ipDisplaySpan.innerText = '— . — . — . —';
-                    rotateIpBtn.disabled = true;
-                    hideMarker();
-                    mapOverlay.classList.remove('hidden');
+                    led.classList.add('inactive'); statusTextSpan.innerText = 'Готов к подключению'; toggleBtn.innerHTML = '<i class="fas fa-shield-halved"></i> Подключиться'; ipDisplaySpan.innerText = '— . — . — . —'; hideMarker(); mapOverlay.classList.remove('hidden');
                 }
             }
-
             function startSessionStats() {
                 if (sessionInterval) clearInterval(sessionInterval);
-                let sessionSeconds = 0;
+                let sec = 0;
                 sessionInterval = setInterval(() => {
                     if (isActive) {
-                        sessionSeconds++;
-                        const mins = Math.floor(sessionSeconds / 60);
-                        const secs = sessionSeconds % 60;
-                        sessionTimeSpan.innerText = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+                        sec++; sessionTimeSpan.innerText = `${Math.floor(sec/60).toString().padStart(2,'0')}:${(sec%60).toString().padStart(2,'0')}`;
                         usedBytes += Math.random() * 1.2 * 1024 * 1024;
                         usedGbSpan.innerText = (usedBytes / (1024**3)).toFixed(2);
                     }
                 }, 1000);
             }
-
             async function toggleConnection() {
-                if (activeKeyIndex < 0) {
-                    showNotification('Ошибка', 'Сначала выбери ключ', 'error');
-                    return;
-                }
+                if (activeKeyIndex < 0) { showNotification('Ошибка', 'Сначала выбери ключ', 'error'); return; }
                 if (!isActive) {
-                    loadingOverlay.classList.add('active');
-                    await new Promise(r => setTimeout(r, 1500));
-                    
-                    isActive = true;
-                    usedBytes = 0;
-                    startSessionStats();
+                    vpnLoading.classList.add('active');
+                    await new Promise(r => setTimeout(r, 1800));
+                    isActive = true; usedBytes = 0; startSessionStats();
                     const key = keys[activeKeyIndex];
                     key.ip = generateRandomIP(key.country);
                     ipDisplaySpan.innerText = key.ip;
-                    updateMapPin(key.country);
+                    updateMapPin(key.country, true);
                     updateUI();
-                    loadingOverlay.classList.remove('active');
+                    vpnLoading.classList.remove('active');
                     showNotification('Защита активирована', `${key.countryName} · ${key.ip}`, 'success');
                 } else {
                     isActive = false;
                     if (sessionInterval) clearInterval(sessionInterval);
                     sessionInterval = null;
-                    sessionTimeSpan.innerText = '00:00';
-                    usedGbSpan.innerText = '0.00';
+                    sessionTimeSpan.innerText = '00:00'; usedGbSpan.innerText = '0.00';
                     updateUI();
                     showNotification('Защита отключена', 'Ваше соединение больше не защищено', 'off');
                 }
             }
-
             function addKeyFromModal() {
                 const url = keyInput.value.trim();
                 if (!url) { showNotification('Ошибка', 'Введите ключ', 'error'); return; }
@@ -961,48 +841,23 @@
                 if (keys.some(k => k.fullUrl === url)) { showNotification('Ошибка', 'Такой ключ уже есть', 'error'); return; }
                 keys.push(parsed);
                 if (activeKeyIndex === -1) activeKeyIndex = 0;
-                updateUI();
-                if (activeKeyIndex >= 0) {
-                    const coords = countryCoords[keys[activeKeyIndex].country];
-                    if (coords && marker) marker.setLatLng([coords.lat, coords.lng]);
-                }
-                modalOverlay.classList.remove('active');
-                keyInput.value = '';
+                updateUI(); updateMapPin(keys[activeKeyIndex].country, false);
+                modalOverlay.classList.remove('active'); keyInput.value = '';
                 showNotification('Ключ добавлен', parsed.countryName, 'success');
             }
-
             function loadAllKeys() {
-                ALL_KEYS.forEach(url => {
-                    const parsed = parseKey(url);
-                    if (parsed) keys.push(parsed);
-                });
-                if (keys.length > 0) activeKeyIndex = 0;
-                updateUI();
-                if (activeKeyIndex >= 0) {
-                    const coords = countryCoords[keys[activeKeyIndex].country];
-                    if (coords && marker) marker.setLatLng([coords.lat, coords.lng]);
-                }
+                ALL_KEYS.forEach(u => { const p = parseKey(u); if(p) keys.push(p); });
+                if (keys.length) activeKeyIndex = 0;
+                updateUI(); if(activeKeyIndex>=0) updateMapPin(keys[activeKeyIndex].country, false);
             }
-
-            const addKeyBtn = document.getElementById('addKeyBtn');
-            const modalOverlay = document.getElementById('modalOverlay');
-            const keyInput = document.getElementById('keyInput');
-            const cancelModalBtn = document.getElementById('cancelModalBtn');
-            const confirmModalBtn = document.getElementById('confirmModalBtn');
-
-            toggleBtn.addEventListener('click', toggleConnection);
-            // Кнопка смены IP заблокирована навсегда
-            rotateIpBtn.disabled = true;
-            
-            addKeyBtn.addEventListener('click', () => { modalOverlay.classList.add('active'); });
-            cancelModalBtn.addEventListener('click', () => { modalOverlay.classList.remove('active'); keyInput.value = ''; });
-            confirmModalBtn.addEventListener('click', addKeyFromModal);
-            modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) modalOverlay.classList.remove('active'); });
-
-            initMap();
-            loadAllKeys();
-            hideMarker();
-            mapOverlay.classList.remove('hidden');
+            const addKeyBtn = document.getElementById('addKeyBtn'), modalOverlay = document.getElementById('modalOverlay');
+            const keyInput = document.getElementById('keyInput'), cancelModalBtn = document.getElementById('cancelModalBtn'), confirmModalBtn = document.getElementById('confirmModalBtn');
+            toggleBtn.onclick = toggleConnection;
+            addKeyBtn.onclick = () => modalOverlay.classList.add('active');
+            cancelModalBtn.onclick = () => { modalOverlay.classList.remove('active'); keyInput.value = ''; };
+            confirmModalBtn.onclick = addKeyFromModal;
+            modalOverlay.onclick = (e) => { if (e.target === modalOverlay) modalOverlay.classList.remove('active'); };
+            initMap(); loadAllKeys(); hideMarker(); mapOverlay.classList.remove('hidden');
         })();
     </script>
 </body>
