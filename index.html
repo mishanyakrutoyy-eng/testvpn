@@ -83,26 +83,26 @@
             text-align: center;
         }
         .splash-logo {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             background: #1a1f2e;
-            border-radius: 28px;
+            border-radius: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            margin: 0 auto 24px;
             animation: splashPulse 1.2s ease-in-out infinite;
         }
         body.dark .splash-logo {
             background: #3b4259;
         }
         .splash-logo i {
-            font-size: 2.5rem;
+            font-size: 3.2rem;
             color: white;
         }
         .splash-text {
-            font-weight: 700;
-            font-size: 1.4rem;
+            font-weight: 800;
+            font-size: 1.8rem;
             color: #1a1f2e;
         }
         body.dark .splash-text {
@@ -110,13 +110,13 @@
         }
         .splash-dots {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             justify-content: center;
-            margin-top: 12px;
+            margin-top: 16px;
         }
         .splash-dots span {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background: #1a1f2e;
             border-radius: 50%;
             opacity: 0.5;
@@ -163,8 +163,8 @@
 
         /* безопасная зона сверху (для Dynamic Island / notch) */
         .safe-top {
-            height: env(safe-area-inset-top, 44px);
-            min-height: 44px;
+            height: env(safe-area-inset-top, 48px);
+            min-height: 48px;
             background: transparent;
             width: 100%;
         }
@@ -174,7 +174,7 @@
             top: 0;
             z-index: 100;
             background: white;
-            padding: 10px 16px;
+            padding: 16px 20px;
             border-bottom: 1px solid #eff2f8;
             display: flex;
             align-items: center;
@@ -189,16 +189,16 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.6rem;
         }
         .logo-icon {
             background: #1a1f2e;
             color: white;
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -207,13 +207,13 @@
             background: #3b4259;
         }
         .logo-icon i {
-            font-size: 1rem;
+            font-size: 1.3rem;
         }
         .logo span {
             background: linear-gradient(135deg, #1a1f2e 0%, #2d3a4e 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
         }
         body.dark .logo span {
             background: linear-gradient(135deg, #ffffff 0%, #b0bbff 100%);
@@ -221,13 +221,13 @@
             -webkit-text-fill-color: transparent;
         }
         .vpn-badge {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             font-weight: 600;
             color: #4a5b7a;
             background: #f0f3fa;
-            padding: 4px 10px;
+            padding: 6px 14px;
             border-radius: 30px;
-            margin-right: 6px;
+            margin-right: 8px;
         }
         body.dark .vpn-badge {
             background: #2d3348;
@@ -236,10 +236,10 @@
         .settings-btn {
             background: none;
             border: none;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: #1a1f2e;
             cursor: pointer;
-            padding: 6px;
+            padding: 10px;
             border-radius: 50%;
             transition: background 0.2s;
             display: flex;
@@ -255,12 +255,12 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
         }
 
         .map-wrapper {
             position: relative;
-            height: 260px;
+            height: 320px;
             width: 100%;
             background: #e6edf6;
             overflow: hidden;
@@ -275,8 +275,8 @@
 
         .custom-marker {
             background: #1a1f2e;
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             border: 3px solid white;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -284,6 +284,9 @@
             align-items: center;
             justify-content: center;
             color: white;
+        }
+        .custom-marker i {
+            font-size: 14px;
         }
         .map-overlay {
             position: absolute;
@@ -298,15 +301,15 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
             transition: opacity 0.3s ease;
         }
         body.dark .map-overlay {
             background: rgba(18, 20, 28, 0.92);
         }
         .map-overlay.hidden { opacity: 0; pointer-events: none; }
-        .map-overlay i { font-size: 2.2rem; color: #8b99ae; }
-        .map-overlay span { font-size: 0.85rem; font-weight: 500; color: #5b6a84; }
+        .map-overlay i { font-size: 3rem; color: #8b99ae; }
+        .map-overlay span { font-size: 1rem; font-weight: 500; color: #5b6a84; }
         body.dark .map-overlay span { color: #9aa6c2; }
 
         .vpn-loading-overlay {
@@ -322,38 +325,38 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
         }
         .vpn-loading-overlay.active { opacity: 1; visibility: visible; }
         .loading-shield {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             background: rgba(255,255,255,0.15);
-            border-radius: 20px;
+            border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             animation: loadingPulse 1.2s ease-in-out infinite;
         }
-        .loading-shield i { font-size: 2rem; color: white; }
-        .loading-text { color: white; font-size: 0.85rem; font-weight: 500; }
-        .loading-dots { display: flex; gap: 5px; }
+        .loading-shield i { font-size: 2.8rem; color: white; }
+        .loading-text { color: white; font-size: 1rem; font-weight: 500; }
+        .loading-dots { display: flex; gap: 8px; }
         .loading-dots span {
-            width: 5px; height: 5px; background: white; border-radius: 50%;
+            width: 8px; height: 8px; background: white; border-radius: 50%;
             opacity: 0.6; animation: loadingDot 1s ease-in-out infinite;
         }
         @keyframes loadingPulse { 0%,100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
         @keyframes loadingDot { 0%,100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1); } }
 
-        .content { flex: 1; padding: 12px 16px 20px; }
+        .content { flex: 1; padding: 20px 20px 24px; }
         .active-card {
             background: #f8fafd;
-            border-radius: 24px;
-            padding: 14px;
-            margin-bottom: 16px;
+            border-radius: 32px;
+            padding: 20px;
+            margin-bottom: 24px;
             border: 1px solid #eef2f8;
             transition: background 0.3s ease, border-color 0.3s ease;
         }
@@ -361,20 +364,32 @@
             background: #23283c;
             border-color: #2d3348;
         }
-        .status-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+        .status-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
         .led {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: #4cd964; box-shadow: 0 0 6px #4cd964;
-            display: inline-block; margin-right: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4cd964;
+            box-shadow: 0 0 8px #4cd964;
+            display: inline-block;
         }
         .led.inactive { background: #cbd5e1; box-shadow: none; }
         body.dark .led.inactive { background: #4a5568; }
+        .status-text {
+            font-weight: 600;
+            font-size: 1rem;
+        }
         .current-ip {
             font-family: monospace;
             background: white;
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 0.7rem;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.85rem;
             font-weight: 500;
             border: 1px solid #e2e8f0;
         }
@@ -383,45 +398,45 @@
             border-color: #3d435c;
             color: #eef2ff;
         }
-        .stats-grid { display: flex; gap: 10px; margin: 10px 0; }
+        .stats-grid { display: flex; gap: 16px; margin: 16px 0; }
         .stat-item {
             flex: 1;
             background: white;
-            border-radius: 16px;
-            padding: 8px;
+            border-radius: 24px;
+            padding: 14px;
             text-align: center;
             transition: background 0.3s ease;
         }
         body.dark .stat-item { background: #1a1e2c; }
-        .stat-value { font-size: 1.1rem; font-weight: 700; color: #1a1f2e; }
+        .stat-value { font-size: 1.5rem; font-weight: 700; color: #1a1f2e; }
         body.dark .stat-value { color: #eef2ff; }
-        .stat-label { font-size: 0.6rem; color: #6c7a91; }
+        .stat-label { font-size: 0.7rem; color: #6c7a91; margin-top: 4px; }
         body.dark .stat-label { color: #9aa6c2; }
         .action-btn {
             width: 100%;
             background: #1a1f2e;
             border: none;
             color: white;
-            padding: 10px 0;
-            border-radius: 40px;
+            padding: 14px 0;
+            border-radius: 60px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 1rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             transition: 0.1s;
         }
         .action-btn:active { transform: scale(0.97); }
 
         .keys-section { margin-top: 8px; }
         .section-title {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
             color: #6c7a91;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -431,19 +446,19 @@
             background: none;
             border: none;
             color: #1a1f2e;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
         }
         body.dark .add-key-btn { color: #b0bbff; }
-        .keys-list { display: flex; flex-direction: column; gap: 8px; }
+        .keys-list { display: flex; flex-direction: column; gap: 12px; }
         .key-item {
             background: #f8fafd;
-            border-radius: 18px;
-            padding: 10px 12px;
+            border-radius: 24px;
+            padding: 14px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -457,33 +472,34 @@
         }
         .key-item.active { border-color: #1a1f2e; background: #eff3ff; }
         body.dark .key-item.active { border-color: #6c7aff; background: #2a3048; }
-        .key-info { display: flex; align-items: center; gap: 8px; }
-        .key-flag { font-size: 1.4rem; }
-        .key-country { font-weight: 600; font-size: 0.85rem; }
+        .key-info { display: flex; align-items: center; gap: 12px; }
+        .key-flag { font-size: 1.8rem; }
+        .key-details { display: flex; flex-direction: column; }
+        .key-country { font-weight: 700; font-size: 1rem; }
         body.dark .key-country { color: #eef2ff; }
         .key-link {
-            font-size: 0.55rem;
+            font-size: 0.65rem;
             color: #8b99ae;
             font-family: monospace;
-            max-width: 150px;
+            max-width: 180px;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         .key-status-badge {
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             background: white;
-            padding: 3px 8px;
+            padding: 5px 12px;
             border-radius: 30px;
             font-weight: 500;
         }
         body.dark .key-status-badge { background: #1a1e2c; color: #b0bbff; }
         .footer-note {
             text-align: center;
-            font-size: 0.55rem;
+            font-size: 0.65rem;
             color: #9aa6bb;
-            padding: 12px;
+            padding: 16px;
             border-top: 1px solid #f0f2f8;
-            margin-top: 10px;
+            margin-top: 16px;
         }
         body.dark .footer-note {
             color: #6c7a91;
@@ -509,23 +525,23 @@
         .modal-overlay.active { visibility: visible; opacity: 1; }
         .modal {
             background: white;
-            border-radius: 28px;
+            border-radius: 36px;
             width: 90%;
-            max-width: 320px;
-            padding: 20px;
+            max-width: 340px;
+            padding: 28px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         body.dark .modal { background: #1a1e2c; }
-        .modal h3 { font-size: 1.1rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .modal h3 { font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         body.dark .modal h3 { color: #eef2ff; }
         .modal input {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: 1.5px solid #e2e8f0;
-            border-radius: 40px;
-            font-size: 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
             font-family: monospace;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             outline: none;
         }
         body.dark .modal input {
@@ -533,15 +549,15 @@
             border-color: #3d435c;
             color: #eef2ff;
         }
-        .modal-buttons { display: flex; gap: 10px; }
+        .modal-buttons { display: flex; gap: 12px; }
         .modal-btn {
             flex: 1;
-            padding: 10px;
-            border-radius: 40px;
+            padding: 12px;
+            border-radius: 50px;
             font-weight: 600;
             border: none;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
         .modal-btn.cancel { background: #f0f2f8; color: #1a1f2e; }
         .modal-btn.confirm { background: #1a1f2e; color: white; }
@@ -552,24 +568,24 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 14px 0;
             border-bottom: 1px solid #eef2f8;
         }
         body.dark .settings-item { border-bottom-color: #2d3348; }
         .settings-item:last-child { border-bottom: none; }
-        .settings-label { font-weight: 500; font-size: 0.85rem; }
+        .settings-label { font-weight: 500; font-size: 0.95rem; }
         .support-link {
             color: #1a1f2e;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
+            gap: 8px;
+            font-size: 0.95rem;
         }
         body.dark .support-link { color: #b0bbff; }
         .toggle-switch {
-            width: 44px;
-            height: 22px;
+            width: 48px;
+            height: 26px;
             background: #cbd5e1;
             border-radius: 30px;
             position: relative;
@@ -580,8 +596,8 @@
         body.dark .toggle-switch.active { background: #3b4259; }
         .toggle-switch::after {
             content: '';
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
             background: white;
             border-radius: 50%;
             position: absolute;
@@ -593,44 +609,47 @@
 
         .notification-container {
             position: fixed;
-            top: 80px;
-            right: 12px;
+            top: 90px;
+            right: 16px;
             z-index: 2000;
-            width: 260px;
+            width: 280px;
             pointer-events: none;
         }
         .notification {
             background: rgba(26, 31, 46, 0.95);
             backdrop-filter: blur(8px);
             color: white;
-            border-radius: 18px;
-            padding: 10px 14px;
+            border-radius: 24px;
+            padding: 14px 18px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 14px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.2);
             transform: translateX(120%);
             transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         .notification.show { transform: translateX(0); }
         .notification-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 10px;
+            width: 36px;
+            height: 36px;
+            border-radius: 14px;
             background: rgba(255,255,255,0.15);
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .notification-content { flex: 1; font-size: 0.75rem; font-weight: 500; }
-        .notification-close { cursor: pointer; opacity: 0.6; font-size: 0.7rem; }
+        .notification-icon i {
+            font-size: 1rem;
+        }
+        .notification-content { flex: 1; font-size: 0.85rem; font-weight: 500; }
+        .notification-close { cursor: pointer; opacity: 0.6; font-size: 0.8rem; }
         
         @media (max-width: 400px) {
-            .logo span { font-size: 1rem; }
-            .key-link { max-width: 120px; }
-            .stats-grid { gap: 6px; }
-            .stat-item { padding: 6px; }
+            .logo span { font-size: 1.2rem; }
+            .logo-icon { width: 38px; height: 38px; }
+            .key-link { max-width: 140px; }
+            .stats-grid { gap: 10px; }
         }
     </style>
 </head>
@@ -673,20 +692,20 @@
         <div class="content">
             <div class="active-card">
                 <div class="status-row">
-                    <div style="display: flex; align-items: center; gap: 6px;">
+                    <div class="status-indicator">
                         <span class="led inactive" id="led"></span>
-                        <span id="statusText" style="font-weight: 600;">Отключено</span>
+                        <span class="status-text" id="statusText">Отключено</span>
                     </div>
                     <span class="current-ip" id="ipDisplay">— . — . — . —</span>
                 </div>
                 <div class="stats-grid">
                     <div class="stat-item">
                         <div class="stat-value" id="usedGb">0.00</div>
-                        <div class="stat-label">GB</div>
+                        <div class="stat-label">GB использовано</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value" id="sessionTime">00:00</div>
-                        <div class="stat-label">Сессия</div>
+                        <div class="stat-label">Время сессии</div>
                     </div>
                 </div>
                 <div class="action-buttons">
@@ -697,13 +716,13 @@
             <div class="keys-section">
                 <div class="section-title">
                     <span><i class="fas fa-key"></i> Мои ключи</span>
-                    <button class="add-key-btn" id="addKeyBtn"><i class="fas fa-plus-circle"></i> Добавить</button>
+                    <button class="add-key-btn" id="addKeyBtn"><i class="fas fa-plus-circle"></i> Добавить ключ</button>
                 </div>
                 <div class="keys-list" id="keysList"></div>
             </div>
         </div>
         <div class="footer-note">
-            <i class="fas fa-shield-alt"></i> Shift Shield — твой киберщит
+            <i class="fas fa-shield-alt"></i> Shift Shield — твой киберщит в интернете
         </div>
     </div>
 
@@ -728,11 +747,11 @@
                 <div class="toggle-switch" id="themeToggle"></div>
             </div>
             <div class="settings-item">
-                <span class="settings-label"><i class="fas fa-wifi"></i> Оффлайн режим</span>
+                <span class="settings-label"><i class="fas fa-wifi"></i> Полный оффлайн</span>
                 <div class="toggle-switch" id="offlineToggle"></div>
             </div>
             <div class="settings-item">
-                <span class="settings-label"><i class="fas fa-headset"></i> Поддержка</span>
+                <span class="settings-label"><i class="fas fa-headset"></i> Техподдержка</span>
                 <a href="https://t.me/shiftvpnsup" target="_blank" class="support-link">@shiftvpnsup <i class="fas fa-external-link-alt"></i></a>
             </div>
         </div>
@@ -772,7 +791,7 @@
                 offlineMode = !offlineMode;
                 localStorage.setItem('shiftShieldOffline', offlineMode);
                 offlineToggle.classList.toggle('active', offlineMode);
-                showNotification('Оффлайн режим', offlineMode ? 'Сеть отключена' : 'Сеть включена', 'info');
+                showNotification('Оффлайн режим', offlineMode ? 'Сеть отключена (демо)' : 'Сеть включена', 'info');
             });
 
             // Уведомления
@@ -781,7 +800,7 @@
             let currentTimeout = null;
             
             function showNotification(title, message, type = 'info') {
-                const duration = 2500;
+                const duration = 2800;
                 if (currentNotification) {
                     currentNotification.classList.remove('show');
                     setTimeout(() => {
@@ -799,7 +818,7 @@
                 else if (type === 'off') iconColor = '#e74c3c';
                 notif.innerHTML = `
                     <div class="notification-icon" style="background: ${iconColor}20;"><i class="fas ${iconClass}" style="color: ${iconColor};"></i></div>
-                    <div class="notification-content"><div style="font-weight: 600;">${title}</div><div style="font-size: 0.7rem;">${message}</div></div>
+                    <div class="notification-content"><div style="font-weight: 600;">${title}</div><div style="font-size: 0.75rem;">${message}</div></div>
                     <div class="notification-close"><i class="fas fa-times"></i></div>
                 `;
                 notificationContainer.appendChild(notif);
@@ -865,7 +884,7 @@
                 if (map) return;
                 map = L.map('map', { center: [51.1657, 10.4515], zoom: 4.5, zoomControl: false, dragging: false, scrollWheelZoom: false, touchZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, tap: false, attributionControl: false });
                 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '', subdomains: 'abcd' }).addTo(map);
-                const icon = L.divIcon({ className: 'custom-marker', html: '<i class="fas fa-shield-alt"></i>', iconSize: [28,28], iconAnchor: [14,14] });
+                const icon = L.divIcon({ className: 'custom-marker', html: '<i class="fas fa-shield-alt"></i>', iconSize: [32,32], iconAnchor: [16,16] });
                 marker = L.marker([51.1657,10.4515], { icon }).addTo(map);
                 hideMarker();
             }
@@ -883,7 +902,7 @@
             }
             function updateUI() {
                 if (keys.length === 0) {
-                    keysListEl.innerHTML = '<div style="text-align:center;padding:20px;color:#9aa6bb;"><i class="fas fa-shield-alt"></i><br>Нет ключей<br>нажми «Добавить»</div>';
+                    keysListEl.innerHTML = '<div style="text-align:center;padding:30px;color:#9aa6bb;"><i class="fas fa-shield-alt" style="font-size:2rem; margin-bottom:8px; display:block;"></i>Нет ключей<br>нажми «Добавить ключ»</div>';
                     activeKeyIndex = -1; led.classList.add('inactive'); statusTextSpan.innerText = 'Нет ключей'; ipDisplaySpan.innerText = '— . — . — . —'; toggleBtn.disabled = true;
                     return;
                 }
@@ -892,7 +911,7 @@
                 keys.forEach((k, idx) => {
                     const div = document.createElement('div');
                     div.className = `key-item ${idx === activeKeyIndex ? 'active' : ''}`;
-                    div.innerHTML = `<div class="key-info"><span class="key-flag">${k.flag}</span><div class="key-details"><div class="key-country">${k.countryName}</div><div class="key-link">${k.fullUrl.substring(0,40)}...</div></div></div><div class="key-status-badge">${idx === activeKeyIndex ? (isActive ? 'Активен' : 'Выбран') : 'Доступен'}</div>`;
+                    div.innerHTML = `<div class="key-info"><span class="key-flag">${k.flag}</span><div class="key-details"><div class="key-country">${k.countryName}</div><div class="key-link">${k.fullUrl.substring(0,45)}...</div></div></div><div class="key-status-badge">${idx === activeKeyIndex ? (isActive ? 'Активен' : 'Выбран') : 'Доступен'}</div>`;
                     div.onclick = () => {
                         if (isActive) { showNotification('Действие заблокировано', 'Сначала отключи защиту', 'warning'); return; }
                         activeKeyIndex = idx; updateUI(); updateMapPin(keys[activeKeyIndex].country, false); showNotification('Страна выбрана', keys[activeKeyIndex].countryName, 'success');
@@ -902,7 +921,7 @@
                 if (activeKeyIndex >= 0 && isActive) {
                     led.classList.remove('inactive'); statusTextSpan.innerText = 'Активен'; toggleBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Отключиться'; ipDisplaySpan.innerText = keys[activeKeyIndex].ip; showMarker(); mapOverlay.classList.add('hidden');
                 } else if (activeKeyIndex >= 0 && !isActive) {
-                    led.classList.add('inactive'); statusTextSpan.innerText = 'Готов'; toggleBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Подключиться'; ipDisplaySpan.innerText = '— . — . — . —'; hideMarker(); mapOverlay.classList.remove('hidden');
+                    led.classList.add('inactive'); statusTextSpan.innerText = 'Готов к подключению'; toggleBtn.innerHTML = '<i class="fas fa-shield-alt"></i> Подключиться'; ipDisplaySpan.innerText = '— . — . — . —'; hideMarker(); mapOverlay.classList.remove('hidden');
                 }
             }
             function startSessionStats() {
@@ -920,7 +939,7 @@
                 if (activeKeyIndex < 0) { showNotification('Ошибка', 'Сначала выбери ключ', 'error'); return; }
                 if (!isActive) {
                     vpnLoading.classList.add('active');
-                    await new Promise(r => setTimeout(r, 1600));
+                    await new Promise(r => setTimeout(r, 1800));
                     isActive = true; usedBytes = 0; startSessionStats();
                     const key = keys[activeKeyIndex];
                     key.ip = generateRandomIP(key.country);
@@ -935,15 +954,15 @@
                     sessionInterval = null;
                     sessionTimeSpan.innerText = '00:00'; usedGbSpan.innerText = '0.00';
                     updateUI();
-                    showNotification('Защита отключена', 'Соединение не защищено', 'off');
+                    showNotification('Защита отключена', 'Ваше соединение больше не защищено', 'off');
                 }
             }
             function addKeyFromModal() {
                 const url = keyInput.value.trim();
                 if (!url) { showNotification('Ошибка', 'Введите ключ', 'error'); return; }
                 const parsed = parseKey(url);
-                if (!parsed) { showNotification('Ошибка', 'Неверный формат', 'error'); return; }
-                if (keys.some(k => k.fullUrl === url)) { showNotification('Ошибка', 'Ключ уже есть', 'error'); return; }
+                if (!parsed) { showNotification('Ошибка', 'Неверный формат ключа', 'error'); return; }
+                if (keys.some(k => k.fullUrl === url)) { showNotification('Ошибка', 'Такой ключ уже есть', 'error'); return; }
                 keys.push(parsed);
                 if (activeKeyIndex === -1) activeKeyIndex = 0;
                 updateUI(); updateMapPin(keys[activeKeyIndex].country, false);
