@@ -103,13 +103,16 @@
         body.dark .mobile-container { background: #1a1e2c; }
         .mobile-container.loaded { opacity: 1; }
 
-        .safe-top { height: env(safe-area-inset-top, 48px); min-height: 48px; background: transparent; }
+        .safe-top { height: env(safe-area-inset-top, 0px); min-height: 0px; }
 
+        /* Шапка НЕ закреплена */
         .header {
-            position: sticky; top: 0; z-index: 100;
-            background: white; padding: 16px 20px;
+            background: white;
+            padding: 16px 20px;
             border-bottom: 1px solid #eff2f8;
-            display: flex; align-items: center; justify-content: space-between;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             transition: background 0.3s ease;
         }
         body.dark .header { background: #1a1e2c; border-bottom-color: #2d3348; }
@@ -253,16 +256,12 @@
             border-top: 1px solid #eef2f8; padding-top: 10px; margin-top: 4px;
         }
         body.dark .key-actions { border-top-color: #2d3348; }
-        .renew-btn {
-            background: none; border: none; color: #1a1f2e; font-size: 0.75rem;
-            font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px;
-            padding: 6px 12px; border-radius: 30px; background: #eef2f8;
-        }
-        body.dark .renew-btn { background: #2d3348; color: #b0bbff; }
         .copy-btn {
             background: none; border: none; color: #8b99ae; cursor: pointer;
-            padding: 6px; border-radius: 30px; transition: 0.1s;
+            padding: 6px 12px; border-radius: 30px; transition: 0.1s;
+            font-size: 0.75rem; display: flex; align-items: center; gap: 6px;
         }
+        body.dark .copy-btn { color: #b0bbff; }
         .copy-btn:active { background: rgba(0,0,0,0.05); }
         .footer-note {
             text-align: center; font-size: 0.65rem; color: #9aa6bb;
@@ -282,12 +281,14 @@
         }
         body.dark .modal { background: #1a1e2c; }
         .modal h3 { font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        .modal select {
+        .modal textarea {
             width: 100%; padding: 14px; border: 1.5px solid #e2e8f0;
-            border-radius: 50px; font-size: 0.9rem; margin-bottom: 20px;
-            background: white; outline: none;
+            border-radius: 24px; font-size: 0.85rem; font-family: monospace;
+            margin-bottom: 20px; outline: none; resize: none;
         }
-        body.dark .modal select { background: #2d3348; border-color: #3d435c; color: #eef2ff; }
+        body.dark .modal textarea {
+            background: #2d3348; border-color: #3d435c; color: #eef2ff;
+        }
         .modal-buttons { display: flex; gap: 12px; }
         .modal-btn {
             flex: 1; padding: 12px; border-radius: 50px; font-weight: 600;
@@ -298,24 +299,74 @@
         body.dark .modal-btn.cancel { background: #2d3348; color: #eef2ff; }
         body.dark .modal-btn.confirm { background: #3b4259; }
 
+        /* Уведомления в правом верхнем углу */
         .notification-container {
-            position: fixed; top: 90px; right: 16px; z-index: 2000;
-            width: 280px; pointer-events: none;
+            position: fixed;
+            top: 20px;
+            right: 16px;
+            z-index: 2000;
+            width: 280px;
+            pointer-events: none;
         }
         .notification {
-            background: rgba(26, 31, 46, 0.95); backdrop-filter: blur(8px);
-            color: white; border-radius: 24px; padding: 14px 18px;
-            display: flex; align-items: center; gap: 14px;
-            transform: translateX(120%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            margin-bottom: 10px;
+            background: rgba(26, 31, 46, 0.95);
+            backdrop-filter: blur(8px);
+            color: white;
+            border-radius: 24px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            transform: translateX(120%);
+            transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-        .notification.show { transform: translateX(0); }
+        .notification.show {
+            transform: translateX(0);
+        }
         .notification-icon {
-            width: 36px; height: 36px; border-radius: 14px;
-            background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .notification-content { flex: 1; font-size: 0.85rem; font-weight: 500; }
-        .notification-close { cursor: pointer; opacity: 0.6; }
+        .notification-content {
+            flex: 1;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .notification-close {
+            cursor: pointer;
+            opacity: 0.6;
+            font-size: 0.8rem;
+            pointer-events: auto;
+        }
+        
+        .settings-item {
+            display: flex; align-items: center; justify-content: space-between; padding: 14px 0;
+            border-bottom: 1px solid #eef2f8;
+        }
+        body.dark .settings-item { border-bottom-color: #2d3348; }
+        .settings-item:last-child { border-bottom: none; }
+        .settings-label { font-weight: 500; font-size: 0.95rem; }
+        .support-link {
+            color: #1a1f2e; text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;
+        }
+        body.dark .support-link { color: #b0bbff; }
+        .toggle-switch {
+            width: 48px; height: 26px; background: #cbd5e1; border-radius: 30px;
+            position: relative; cursor: pointer; transition: 0.2s;
+        }
+        .toggle-switch.active { background: #1a1f2e; }
+        body.dark .toggle-switch.active { background: #3b4259; }
+        .toggle-switch::after {
+            content: ''; width: 22px; height: 22px; background: white; border-radius: 50%;
+            position: absolute; top: 2px; left: 2px; transition: 0.2s;
+        }
+        .toggle-switch.active::after { left: 24px; }
     </style>
 </head>
 <body>
@@ -366,25 +417,11 @@
     <!-- Модалка добавления ключа -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
-            <h3><i class="fas fa-plus-circle"></i> Добавить ключ</h3>
-            <select id="keyTypeSelect">
-                <option value="1">1 день</option>
-                <option value="30">30 дней</option>
-                <option value="90">90 дней</option>
-                <option value="365">365 дней</option>
-                <option value="forever">Навсегда</option>
-            </select>
-            <select id="countrySelect">
-                <option value="germany">🇩🇪 Германия</option>
-                <option value="netherlands">🇳🇱 Нидерланды</option>
-                <option value="usa">🇺🇸 США</option>
-                <option value="canada">🇨🇦 Канада</option>
-                <option value="japan">🇯🇵 Япония</option>
-                <option value="uk">🇬🇧 Великобритания</option>
-            </select>
+            <h3><i class="fas fa-key"></i> Добавить ключ</h3>
+            <textarea id="keyInput" rows="3" placeholder="Вставьте ключ"></textarea>
             <div class="modal-buttons">
                 <button class="modal-btn cancel" id="cancelModalBtn">Отмена</button>
-                <button class="modal-btn confirm" id="confirmModalBtn">Создать ключ</button>
+                <button class="modal-btn confirm" id="confirmModalBtn">Добавить</button>
             </div>
         </div>
     </div>
@@ -432,15 +469,23 @@
                 showNotification('Оффлайн режим', offlineMode ? 'Сеть отключена' : 'Сеть включена', 'info');
             });
 
-            // Уведомления
+            // Уведомления в правом углу
             const notificationContainer = document.getElementById('notificationContainer');
-            let currentNotification = null, currentTimeout = null;
+            let currentNotification = null;
+            let currentTimeout = null;
+            
             function showNotification(title, message, type = 'info') {
+                // Удаляем текущее уведомление
                 if (currentNotification) {
                     currentNotification.classList.remove('show');
-                    setTimeout(() => currentNotification?.remove(), 200);
+                    setTimeout(() => {
+                        if (currentNotification && currentNotification.parentElement) {
+                            currentNotification.remove();
+                        }
+                    }, 200);
                     if (currentTimeout) clearTimeout(currentTimeout);
                 }
+                
                 const notif = document.createElement('div');
                 notif.className = 'notification';
                 let iconColor = type === 'success' ? '#2b8c4a' : (type === 'error' ? '#e74c3c' : '#ffffff');
@@ -451,67 +496,64 @@
                 `;
                 notificationContainer.appendChild(notif);
                 currentNotification = notif;
+                
                 setTimeout(() => notif.classList.add('show'), 10);
-                notif.querySelector('.notification-close').onclick = () => {
+                
+                const closeNotif = () => {
                     notif.classList.remove('show');
-                    setTimeout(() => notif.remove(), 200);
-                    if (currentTimeout) clearTimeout(currentTimeout);
-                    if (currentNotification === notif) currentNotification = null;
-                };
-                currentTimeout = setTimeout(() => {
-                    if (notif?.parentElement) {
-                        notif.classList.remove('show');
-                        setTimeout(() => notif.remove(), 200);
+                    setTimeout(() => {
+                        if (notif.parentElement) notif.remove();
                         if (currentNotification === notif) currentNotification = null;
-                    }
-                }, 2800);
+                    }, 200);
+                };
+                
+                notif.querySelector('.notification-close').onclick = closeNotif;
+                currentTimeout = setTimeout(closeNotif, 2800);
             }
 
-            // Генерация уникального кода
-            function generateUniqueCode() {
-                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                let result = '';
-                for (let i = 0; i < 32; i++) {
-                    result += chars.charAt(Math.floor(Math.random() * chars.length));
-                }
-                return result;
-            }
-
-            // Создание ключа
-            function createKey(country, days, isForever = false) {
-                const uniqueCode = generateUniqueCode();
-                let expiryDate;
-                if (isForever) {
-                    expiryDate = null;
-                } else {
+            // Парсинг ссылки
+            function parseKeyFromUrl(url) {
+                const match = url.match(/https:\/\/connect\.shiftshield\/([a-z]+)\/(\d+|forever)\/sub\/([A-Za-z0-9]+)/);
+                if (!match) return null;
+                const country = match[1];
+                const daysStr = match[2];
+                const code = match[3];
+                const isForever = daysStr === 'forever';
+                const days = isForever ? null : parseInt(daysStr);
+                
+                const names = { germany:'Германия', netherlands:'Нидерланды', usa:'США', canada:'Канада', japan:'Япония', uk:'Великобритания' };
+                const flags = { germany:'🇩🇪', netherlands:'🇳🇱', usa:'🇺🇸', canada:'🇨🇦', japan:'🇯🇵', uk:'🇬🇧' };
+                
+                if (!names[country]) return null;
+                
+                let expiryDate = null;
+                if (!isForever && days) {
                     expiryDate = new Date();
                     expiryDate.setDate(expiryDate.getDate() + days);
                 }
-                const url = `https://connect.shiftshield/${country}/${isForever ? 'forever' : days}/sub/${uniqueCode}`;
-                const flags = { germany:'🇩🇪', netherlands:'🇳🇱', usa:'🇺🇸', canada:'🇨🇦', japan:'🇯🇵', uk:'🇬🇧' };
-                const names = { germany:'Германия', netherlands:'Нидерланды', usa:'США', canada:'Канада', japan:'Япония', uk:'Великобритания' };
+                
                 return {
                     id: Date.now() + Math.random(),
                     country: country,
                     countryName: names[country],
                     flag: flags[country],
-                    days: isForever ? 'forever' : days,
+                    days: days,
+                    daysText: isForever ? 'forever' : days,
                     expiryDate: expiryDate,
+                    isForever: isForever,
                     url: url,
-                    code: uniqueCode,
-                    isForever: isForever
+                    code: code
                 };
             }
 
             // Состояние
-            let keys = []; // пустой массив
+            let keys = [];
             let activeKeyId = null;
             let isActive = false;
             let sessionInterval = null;
             let usedBytes = 0;
             let map = null, marker = null;
 
-            // Функции для работы с картой и VPN
             const countryCoords = {
                 germany:{lat:51.1657,lng:10.4515}, netherlands:{lat:52.1326,lng:5.2913},
                 usa:{lat:39.8283,lng:-98.5795}, canada:{lat:56.1304,lng:-106.3468},
@@ -562,22 +604,6 @@
                 return { text: `${hours} ч ${minutes} мин`, expired: false };
             }
 
-            function renewKey(key) {
-                let newDays = key.days === 'forever' ? 'forever' : key.days;
-                const isForever = newDays === 'forever';
-                const uniqueCode = generateUniqueCode();
-                let newExpiryDate = null;
-                if (!isForever) {
-                    newExpiryDate = new Date();
-                    newExpiryDate.setDate(newExpiryDate.getDate() + parseInt(newDays));
-                }
-                key.code = uniqueCode;
-                key.url = `https://connect.shiftshield/${key.country}/${isForever ? 'forever' : newDays}/sub/${uniqueCode}`;
-                key.expiryDate = newExpiryDate;
-                showNotification('Ключ продлен', `${key.countryName} — новый срок действия`, 'success');
-                updateKeysList();
-            }
-
             function updateKeysList() {
                 const container = document.getElementById('keysList');
                 if (keys.length === 0) {
@@ -604,12 +630,11 @@
                             </div>
                         </div>
                         <div class="key-actions">
-                            <button class="renew-btn" data-id="${key.id}"><i class="fas fa-sync-alt"></i> Продлить</button>
                             <button class="copy-btn" data-url="${key.url}"><i class="fas fa-copy"></i> Копировать</button>
                         </div>
                     `;
                     div.addEventListener('click', (e) => {
-                        if (e.target.closest('.renew-btn') || e.target.closest('.copy-btn')) return;
+                        if (e.target.closest('.copy-btn')) return;
                         if (isActive) { showNotification('Действие заблокировано', 'Сначала отключи защиту', 'warning'); return; }
                         activeKeyId = key.id;
                         updateKeysList();
@@ -617,14 +642,6 @@
                         showNotification('Ключ выбран', key.countryName, 'success');
                     });
                     container.appendChild(div);
-                });
-                document.querySelectorAll('.renew-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const id = parseInt(btn.dataset.id);
-                        const key = keys.find(k => k.id === id);
-                        if (key) renewKey(key);
-                    });
                 });
                 document.querySelectorAll('.copy-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
@@ -716,17 +733,18 @@
             }
 
             function addKeyFromModal() {
-                const daysValue = document.getElementById('keyTypeSelect').value;
-                const country = document.getElementById('countrySelect').value;
-                const isForever = daysValue === 'forever';
-                const days = isForever ? 0 : parseInt(daysValue);
-                const newKey = createKey(country, days, isForever);
-                keys.push(newKey);
-                if (activeKeyId === null) activeKeyId = newKey.id;
+                const url = document.getElementById('keyInput').value.trim();
+                if (!url) { showNotification('Ошибка', 'Введите ключ', 'error'); return; }
+                const parsed = parseKeyFromUrl(url);
+                if (!parsed) { showNotification('Ошибка', 'Неверный формат ключа', 'error'); return; }
+                if (keys.some(k => k.url === url)) { showNotification('Ошибка', 'Такой ключ уже есть', 'error'); return; }
+                keys.push(parsed);
+                if (activeKeyId === null) activeKeyId = parsed.id;
                 updateKeysList();
-                updateMapPin(newKey.country, false);
+                updateMapPin(parsed.country, false);
                 document.getElementById('modalOverlay').classList.remove('active');
-                showNotification('Ключ создан', `${newKey.countryName} — ${isForever ? 'навсегда' : daysValue + ' дней'}`, 'success');
+                document.getElementById('keyInput').value = '';
+                showNotification('Ключ добавлен', `${parsed.countryName} — ${parsed.isForever ? 'навсегда' : parsed.days + ' дней'}`, 'success');
             }
 
             initMap();
@@ -736,7 +754,10 @@
 
             document.getElementById('toggleBtn').onclick = toggleConnection;
             document.getElementById('addKeyBtn').onclick = () => document.getElementById('modalOverlay').classList.add('active');
-            document.getElementById('cancelModalBtn').onclick = () => document.getElementById('modalOverlay').classList.remove('active');
+            document.getElementById('cancelModalBtn').onclick = () => {
+                document.getElementById('modalOverlay').classList.remove('active');
+                document.getElementById('keyInput').value = '';
+            };
             document.getElementById('confirmModalBtn').onclick = addKeyFromModal;
             document.getElementById('settingsBtn').onclick = () => document.getElementById('settingsModal').classList.add('active');
             document.getElementById('settingsModal').onclick = (e) => { if (e.target === document.getElementById('settingsModal')) document.getElementById('settingsModal').classList.remove('active'); };
@@ -745,29 +766,5 @@
             setTimeout(() => { if (map) map.invalidateSize(); }, 100);
         })();
     </script>
-    <style>
-        .settings-item {
-            display: flex; align-items: center; justify-content: space-between; padding: 14px 0;
-            border-bottom: 1px solid #eef2f8;
-        }
-        body.dark .settings-item { border-bottom-color: #2d3348; }
-        .settings-item:last-child { border-bottom: none; }
-        .settings-label { font-weight: 500; font-size: 0.95rem; }
-        .support-link {
-            color: #1a1f2e; text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 0.95rem;
-        }
-        body.dark .support-link { color: #b0bbff; }
-        .toggle-switch {
-            width: 48px; height: 26px; background: #cbd5e1; border-radius: 30px;
-            position: relative; cursor: pointer; transition: 0.2s;
-        }
-        .toggle-switch.active { background: #1a1f2e; }
-        body.dark .toggle-switch.active { background: #3b4259; }
-        .toggle-switch::after {
-            content: ''; width: 22px; height: 22px; background: white; border-radius: 50%;
-            position: absolute; top: 2px; left: 2px; transition: 0.2s;
-        }
-        .toggle-switch.active::after { left: 24px; }
-    </style>
 </body>
 </html>
