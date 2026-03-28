@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Mailletment | Редактируемый каталог</title>
+    <title>Mailletment | Каталог</title>
     <style>
         * {
             margin: 0;
@@ -22,15 +22,14 @@
 
         /* контейнер сайта */
         .site-wrapper {
-            max-width: 860px;
+            max-width: 760px;
+            width: 100%;
             margin: 0 auto;
         }
 
         /* минималистичный каркас каталога */
         .catalog-container {
-            max-width: 760px;
             width: 100%;
-            margin: 0 auto;
             background: #fff;
             border-radius: 32px;
             transition: all 0.2s ease;
@@ -154,9 +153,14 @@
             background: #111;
         }
 
-        /* ========= ПАНЕЛЬ РЕДАКТИРОВАНИЯ (админка) ========= */
+        /* большой отступ после кнопки купить — пустота */
+        .spacer {
+            margin-top: 8rem;
+        }
+
+        /* ========= ПАНЕЛЬ РЕДАКТИРОВАНИЯ (находится сильно ниже) ========= */
         .admin-panel {
-            margin-top: 3rem;
+            margin-top: 2rem;
             background: #fafafa;
             border-radius: 24px;
             padding: 1.5rem;
@@ -187,7 +191,7 @@
         }
 
         .input-group label {
-            min-width: 140px;
+            min-width: 170px;
             font-size: 0.9rem;
             font-weight: 500;
             color: #333;
@@ -208,6 +212,38 @@
             outline: none;
             border-color: #000;
             box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+        }
+
+        .discount-toggle-btn {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            transition: 0.2s;
+            width: fit-content;
+        }
+
+        .discount-toggle-btn:hover {
+            background: #2c2c2c;
+            transform: scale(0.98);
+        }
+
+        .discount-fields {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 2px solid #e0e0e0;
+        }
+
+        .discount-fields.visible {
+            display: flex;
         }
 
         .price-hint {
@@ -288,6 +324,9 @@
             .input-group label {
                 min-width: auto;
             }
+            .spacer {
+                margin-top: 4rem;
+            }
         }
     </style>
 </head>
@@ -297,21 +336,21 @@
         <div class="product-card">
             <!-- Блок фото: клик для загрузки своего изображения -->
             <div class="image-area" id="imageUploadZone">
-                <img id="productImage" class="product-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f5f5f5'/%3E%3Ctext x='50%25' y='50%25' font-size='16' font-family='Arial' fill='%23999' text-anchor='middle' dy='.3em'%3EНажмите, чтобы добавить фото%3C/text%3E%3C/svg%3E" alt="Mailletment North Style">
+                <img id="productImage" class="product-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f5f5f5'/%3E%3Ctext x='50%25' y='50%25' font-size='16' font-family='Arial' fill='%23999' text-anchor='middle' dy='.3em'%3EНажмите, чтобы добавить фото%3C/text%3E%3C/svg%3E" alt="товар">
             </div>
 
             <div class="product-info">
-                <!-- Название товара (динамическое) -->
-                <h1 class="product-title" id="productTitle">Mailletment North Style | Original 2026</h1>
+                <!-- Название товара (изначально: Mailletment | Название | Original 1111) -->
+                <h1 class="product-title" id="productTitle">Mailletment | Название | Original 1111</h1>
 
-                <!-- Ценник + скидка автоматически -->
+                <!-- Ценник + скидка -->
                 <div class="price-block" id="priceBlock">
-                    <span class="current-price" id="currentPrice">25 000 ₽</span>
-                    <span class="old-price" id="oldPrice">35 000 ₽</span>
-                    <span class="discount-badge" id="discountBadge">−29%</span>
+                    <span class="current-price" id="currentPrice">0 ₽</span>
+                    <span class="old-price" id="oldPrice" style="display: none;">0 ₽</span>
+                    <span class="discount-badge" id="discountBadge" style="display: none;">0%</span>
                 </div>
 
-                <!-- Ряд: кнопка "Купить" (описание УБРАНО полностью) -->
+                <!-- Ряд: кнопка "Купить" -->
                 <div class="buy-row">
                     <button class="buy-button" id="buyButton">Купить сейчас</button>
                     <div style="font-size: 0.85rem; color:#555;">официальный каталог</div>
@@ -320,30 +359,51 @@
         </div>
     </div>
 
-    <!-- ПАНЕЛЬ УПРАВЛЕНИЯ: изменение цены, названия, фото -->
-    <div class="admin-panel">
+    <!-- БОЛЬШАЯ ПУСТОТА (отступ после кнопки купить) -->
+    <div class="spacer"></div>
+
+    <!-- ПАНЕЛЬ РЕДАКТИРОВАНИЯ (находится сильно ниже) -->
+    <div class="admin-panel" id="adminPanel">
         <div class="admin-title">⚙️ РЕДАКТИРОВАНИЕ КАТАЛОГА</div>
         <div class="admin-controls">
             <div class="input-group">
                 <label>📝 Название товара:</label>
-                <input type="text" id="titleInput" value="Mailletment North Style | Original 2026" placeholder="Введите название">
+                <input type="text" id="titleInput" value="Mailletment | Название | Original 1111" placeholder="Введите название">
             </div>
+            
+            <!-- Кнопка переключения скидки -->
             <div class="input-group">
-                <label>💰 Цена со скидкой (₽):</label>
-                <input type="number" id="salePriceInput" value="25000" step="1" placeholder="Например: 25000">
-                <span class="price-hint">любое целое число</span>
+                <label>🏷️ Режим цены:</label>
+                <button class="discount-toggle-btn" id="discountToggleBtn">➕ Есть скидка</button>
             </div>
-            <div class="input-group">
-                <label>🏷️ Исходная цена (₽):</label>
-                <input type="number" id="originalPriceInput" value="35000" step="1" placeholder="Например: 35000">
-                <span class="price-hint">любое целое число</span>
+            
+            <!-- Поле для обычной цены (без скидки) - всегда видимо -->
+            <div class="input-group" id="regularPriceGroup">
+                <label>💰 Обычная цена (₽):</label>
+                <input type="number" id="regularPriceInput" value="0" step="1" placeholder="Например: 35000">
+                <span class="price-hint">цена без скидки</span>
             </div>
+            
+            <!-- Блок полей для скидки (скрыт по умолчанию) -->
+            <div id="discountFields" class="discount-fields">
+                <div class="input-group">
+                    <label>🏷️ Исходная цена (было, ₽):</label>
+                    <input type="number" id="originalPriceInput" value="0" step="1" placeholder="Например: 35000">
+                    <span class="price-hint">старая цена</span>
+                </div>
+                <div class="input-group">
+                    <label>✨ Цена со скидкой (₽):</label>
+                    <input type="number" id="salePriceInput" value="0" step="1" placeholder="Например: 25000">
+                    <span class="price-hint">новая цена</span>
+                </div>
+            </div>
+            
             <div class="photo-upload-row">
                 <label>🖼️ Фото товара:</label>
                 <button class="photo-btn" id="adminUploadBtn">Загрузить новое фото</button>
                 <button class="reset-default" id="resetPhotoBtn">Сбросить фото</button>
             </div>
-            <div class="helper-text">※ Скидка рассчитывается автоматически при изменении цен. Вы можете поставить любую цену (хоть 1 рубль, хоть 999999).</div>
+            <div class="helper-text">※ Режим «Есть скидка»: показывается исходная цена и цена со скидкой, процент рассчитывается автоматически. Если скидки нет — просто одна цена.</div>
         </div>
     </div>
 </div>
@@ -360,83 +420,116 @@
         
         // Поля ввода
         const titleInput = document.getElementById('titleInput');
-        const salePriceInput = document.getElementById('salePriceInput');
-        const originalPriceInput = document.getElementById('originalPriceInput');
+        const regularPriceInput = document.getElementById('regularPriceInput'); // обычная цена (когда скидки нет)
+        const originalPriceInput = document.getElementById('originalPriceInput'); // исходная цена (со скидкой)
+        const salePriceInput = document.getElementById('salePriceInput');         // цена со скидкой
+        
+        // Элементы для управления режимом скидки
+        const discountToggleBtn = document.getElementById('discountToggleBtn');
+        const discountFields = document.getElementById('discountFields');
+        const regularPriceGroup = document.getElementById('regularPriceGroup');
         
         // Кнопки
         const buyBtn = document.getElementById('buyButton');
         const adminUploadBtn = document.getElementById('adminUploadBtn');
         const resetPhotoBtn = document.getElementById('resetPhotoBtn');
         
+        // Состояние: есть ли скидка (false = обычная цена, true = цена со скидкой)
+        let hasDiscount = false;
+        
         // Дефолтное фото-заглушка
         const defaultPhotoSVG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f5f5f5'/%3E%3Ctext x='50%25' y='50%25' font-size='16' font-family='Arial' fill='%23999' text-anchor='middle' dy='.3em'%3EНажмите, чтобы добавить фото%3C/text%3E%3C/svg%3E";
         
         // Функция форматирования числа с пробелами
         function formatPrice(price) {
-            // price - число
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽";
         }
         
-        // Функция обновления цен и скидки (работает с любыми числами)
-        function updatePrices() {
-            let salePrice = parseFloat(salePriceInput.value);
-            let originalPrice = parseFloat(originalPriceInput.value);
-            
-            // Валидация: если не число или пусто, ставим 0
-            if (isNaN(salePrice)) salePrice = 0;
-            if (isNaN(originalPrice)) originalPrice = 0;
-            
-            // Округляем до целых (для красоты)
-            salePrice = Math.floor(salePrice);
-            originalPrice = Math.floor(originalPrice);
-            
-            // Если скидочная цена больше исходной - меняем логику: показываем без скидки (скидка 0%)
-            // Но чтобы было логично, если sale > original, то считаем что скидки нет, и oldPrice = salePrice
-            let displayOldPrice = originalPrice;
-            let displaySalePrice = salePrice;
-            
-            if (salePrice > originalPrice && originalPrice > 0) {
-                // Скидочная цена выше исходной — некорректно, делаем исходную равной скидочной
-                displayOldPrice = salePrice;
-                displaySalePrice = salePrice;
-            } else if (originalPrice === 0 && salePrice > 0) {
-                // если исходная 0, то скидку не показываем
-                displayOldPrice = salePrice;
-                displaySalePrice = salePrice;
-            } else if (salePrice === 0 && originalPrice > 0) {
-                // если скидка 0, то это бесплатно? оставляем как есть
-                displaySalePrice = 0;
-            }
-            
-            // Рассчет процента скидки (только если исходная цена больше скидочной и исходная > 0)
-            let discountPercent = 0;
-            if (displayOldPrice > 0 && displayOldPrice > displaySalePrice) {
-                discountPercent = ((displayOldPrice - displaySalePrice) / displayOldPrice) * 100;
-            }
-            const roundedDiscount = Math.round(discountPercent);
-            const discountText = roundedDiscount > 0 ? `−${roundedDiscount}%` : (displaySalePrice === displayOldPrice ? "0%" : "—");
-            
-            // Обновляем отображение
-            currentPriceSpan.innerText = formatPrice(displaySalePrice);
-            oldPriceSpan.innerText = formatPrice(displayOldPrice);
-            
-            // Если скидки нет (цены равны или sale больше) — убираем бейдж или показываем 0%
-            if (displaySalePrice === displayOldPrice || displaySalePrice > displayOldPrice) {
-                discountBadge.innerText = "0%";
+        // Обновление отображения цен на основе текущего режима
+        function updatePriceDisplay() {
+            if (hasDiscount) {
+                // Режим со скидкой: показываем исходную цену (зачеркнутую) и цену со скидкой
+                let originalPrice = parseFloat(originalPriceInput.value);
+                let salePrice = parseFloat(salePriceInput.value);
+                
+                if (isNaN(originalPrice)) originalPrice = 0;
+                if (isNaN(salePrice)) salePrice = 0;
+                
+                originalPrice = Math.floor(originalPrice);
+                salePrice = Math.floor(salePrice);
+                
+                // Если цена со скидкой больше исходной — корректируем
+                if (salePrice > originalPrice && originalPrice > 0) {
+                    salePrice = originalPrice;
+                    salePriceInput.value = salePrice;
+                }
+                
+                // Рассчет процента скидки
+                let discountPercent = 0;
+                let showDiscount = false;
+                if (originalPrice > 0 && salePrice > 0 && salePrice < originalPrice) {
+                    discountPercent = ((originalPrice - salePrice) / originalPrice) * 100;
+                    showDiscount = true;
+                }
+                
+                const roundedDiscount = Math.round(discountPercent);
+                
+                // Обновляем отображение
+                currentPriceSpan.innerText = formatPrice(salePrice);
+                oldPriceSpan.innerText = formatPrice(originalPrice);
+                oldPriceSpan.style.display = 'inline';
+                
+                if (showDiscount && salePrice > 0) {
+                    discountBadge.style.display = 'inline-block';
+                    discountBadge.innerText = `−${roundedDiscount}%`;
+                } else {
+                    discountBadge.style.display = 'none';
+                }
             } else {
-                discountBadge.innerText = discountText;
+                // Режим без скидки: просто одна цена
+                let regularPrice = parseFloat(regularPriceInput.value);
+                if (isNaN(regularPrice)) regularPrice = 0;
+                regularPrice = Math.floor(regularPrice);
+                
+                currentPriceSpan.innerText = formatPrice(regularPrice);
+                oldPriceSpan.style.display = 'none';
+                discountBadge.style.display = 'none';
             }
+        }
+        
+        // Переключение режима скидки
+        function setDiscountMode(enabled) {
+            hasDiscount = enabled;
             
-            // Синхронизируем поля ввода (сохраняем введённые пользователем значения, но если была автокоррекция)
-            salePriceInput.value = salePrice;
-            originalPriceInput.value = originalPrice;
+            if (hasDiscount) {
+                // Включаем режим со скидкой
+                discountToggleBtn.textContent = '✖ Убрать скидку';
+                discountToggleBtn.style.background = '#2c2c2c';
+                discountFields.classList.add('visible');
+                regularPriceGroup.style.opacity = '0.5';
+                regularPriceGroup.style.pointerEvents = 'none';
+                
+                // Инициализируем значения, если они пустые
+                if (originalPriceInput.value === "0" && salePriceInput.value === "0") {
+                    // Можно оставить 0 или подставить пример
+                }
+                updatePriceDisplay();
+            } else {
+                // Выключаем режим со скидкой, показываем обычную цену
+                discountToggleBtn.textContent = '➕ Есть скидка';
+                discountToggleBtn.style.background = '#000';
+                discountFields.classList.remove('visible');
+                regularPriceGroup.style.opacity = '1';
+                regularPriceGroup.style.pointerEvents = 'auto';
+                updatePriceDisplay();
+            }
         }
         
         // Обновление названия товара
         function updateTitle() {
             let newTitle = titleInput.value.trim();
             if (newTitle === "") {
-                newTitle = "Mailletment North Style | Original 2026";
+                newTitle = "Mailletment | Название | Original 1111";
                 titleInput.value = newTitle;
             }
             productTitleElem.innerText = newTitle;
@@ -464,7 +557,7 @@
         // Сброс фото к дефолтной заглушке
         function resetToDefaultPhoto() {
             productImg.src = defaultPhotoSVG;
-            productImg.alt = "Mailletment North Style";
+            productImg.alt = "товар";
         }
         
         // Открыть диалог выбора файла
@@ -489,12 +582,22 @@
         // Изменение названия
         titleInput.addEventListener('input', updateTitle);
         
-        // Изменение цен: обновляем отображение и скидку (любые числа)
-        salePriceInput.addEventListener('input', function() {
-            updatePrices();
+        // Обработчики для цен
+        regularPriceInput.addEventListener('input', function() {
+            if (!hasDiscount) updatePriceDisplay();
         });
+        
         originalPriceInput.addEventListener('input', function() {
-            updatePrices();
+            if (hasDiscount) updatePriceDisplay();
+        });
+        
+        salePriceInput.addEventListener('input', function() {
+            if (hasDiscount) updatePriceDisplay();
+        });
+        
+        // Переключение режима скидки
+        discountToggleBtn.addEventListener('click', function() {
+            setDiscountMode(!hasDiscount);
         });
         
         // Кнопка "Купить"
@@ -504,24 +607,22 @@
             alert(`Спасибо! Вы переходите к оформлению заказа.\nТовар: ${currentTitle}\nСумма: ${priceText}`);
         });
         
-        // Загрузка фото через админ-панель
+        // Загрузка фото
         adminUploadBtn.addEventListener('click', function(e) {
             e.preventDefault();
             triggerFileUpload();
         });
         
-        // Сброс фото
         resetPhotoBtn.addEventListener('click', function(e) {
             e.preventDefault();
             resetToDefaultPhoto();
         });
         
-        // Клик по самой области фото (быстрая замена)
         imageZone.addEventListener('click', function() {
             triggerFileUpload();
         });
         
-        // Drag & Drop для удобной замены фото
+        // Drag & Drop для фото
         imageZone.addEventListener('dragover', function(e) {
             e.preventDefault();
             imageZone.style.backgroundColor = '#f2f2f2';
@@ -549,16 +650,18 @@
             }
         });
         
-        // Инициализация: задаём корректные значения
-        salePriceInput.value = "25000";
-        originalPriceInput.value = "35000";
-        titleInput.value = "Mailletment North Style | Original 2026";
-        updatePrices();
+        // Инициализация: режим без скидки, цены 0, название по умолчанию
+        regularPriceInput.value = "0";
+        originalPriceInput.value = "0";
+        salePriceInput.value = "0";
+        titleInput.value = "Mailletment | Название | Original 1111";
+        
+        // Устанавливаем начальное состояние (без скидки)
+        setDiscountMode(false);
         updateTitle();
         resetToDefaultPhoto();
         
-        // Добавляем подсказку в консоль
-        console.log("Редактор активен — можно ставить любые цены (хоть 1, хоть 999999), скидка считается автоматически. Описание удалено.");
+        console.log("Каталог готов. Панель редактирования находится далеко внизу. Режим «Есть скидка» переключает отображение цен.");
     })();
 </script>
 </body>
