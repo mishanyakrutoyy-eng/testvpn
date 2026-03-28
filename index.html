@@ -153,9 +153,30 @@
             background: #111;
         }
 
-        /* большой отступ после кнопки купить — пустота */
+        /* описание товара */
+        .description {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #2b2b2b;
+            border-left: 2px solid #eaeaea;
+            padding-left: 1.1rem;
+        }
+
+        .description p {
+            margin-bottom: 0.75rem;
+        }
+
+        .description small {
+            color: #777;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-top: 0.25rem;
+        }
+
+        /* большой отступ после описания — пустота перед редактором */
         .spacer {
-            margin-top: 8rem;
+            margin-top: 6rem;
         }
 
         /* ========= ПАНЕЛЬ РЕДАКТИРОВАНИЯ (находится сильно ниже) ========= */
@@ -325,7 +346,7 @@
                 min-width: auto;
             }
             .spacer {
-                margin-top: 4rem;
+                margin-top: 3rem;
             }
         }
     </style>
@@ -355,11 +376,21 @@
                     <button class="buy-button" id="buyButton">Купить сейчас</button>
                     <div style="font-size: 0.85rem; color:#555;">официальный каталог</div>
                 </div>
+
+                <!-- ОПИСАНИЕ ТОВАРА (возвращено) -->
+                <div class="description">
+                    <p>✦ <strong id="dynamicTitleInDesc">Mailletment | Название | Original 1111</strong> — премиальная серия, воплощающая чистый минимализм и техническое совершенство. Изделие создано из композитных материалов нового поколения, устойчивых к внешним воздействиям и сохраняющих безупречный вид.</p>
+                    <p>✔ Эксклюзивный дизайн<br>
+                    ✔ Анатомическая эргономика для ежедневного использования<br>
+                    ✔ Ограниченная серия, каждая единица пронумерована<br>
+                    ✔ Полная комплектация: чехол из микрофибры, гарантийный сертификат 5 лет</p>
+                    <p><small>Доставка по всей России. Оригинальность подтверждена официальным гарантийным талоном. Количество единиц строго ограничено.</small></p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- БОЛЬШАЯ ПУСТОТА (отступ после кнопки купить) -->
+    <!-- БОЛЬШАЯ ПУСТОТА (отступ после описания) -->
     <div class="spacer"></div>
 
     <!-- ПАНЕЛЬ РЕДАКТИРОВАНИЯ (находится сильно ниже) -->
@@ -414,6 +445,7 @@
         const productImg = document.getElementById('productImage');
         const imageZone = document.getElementById('imageUploadZone');
         const productTitleElem = document.getElementById('productTitle');
+        const dynamicTitleSpan = document.getElementById('dynamicTitleInDesc');
         const currentPriceSpan = document.getElementById('currentPrice');
         const oldPriceSpan = document.getElementById('oldPrice');
         const discountBadge = document.getElementById('discountBadge');
@@ -511,7 +543,7 @@
                 
                 // Инициализируем значения, если они пустые
                 if (originalPriceInput.value === "0" && salePriceInput.value === "0") {
-                    // Можно оставить 0 или подставить пример
+                    // Можно оставить 0
                 }
                 updatePriceDisplay();
             } else {
@@ -525,7 +557,7 @@
             }
         }
         
-        // Обновление названия товара
+        // Обновление названия товара (и в описании тоже)
         function updateTitle() {
             let newTitle = titleInput.value.trim();
             if (newTitle === "") {
@@ -533,6 +565,9 @@
                 titleInput.value = newTitle;
             }
             productTitleElem.innerText = newTitle;
+            if (dynamicTitleSpan) {
+                dynamicTitleSpan.innerText = newTitle;
+            }
         }
         
         // Функция для установки фото из файла
@@ -661,7 +696,7 @@
         updateTitle();
         resetToDefaultPhoto();
         
-        console.log("Каталог готов. Панель редактирования находится далеко внизу. Режим «Есть скидка» переключает отображение цен.");
+        console.log("Каталог готов. Описание возвращено. Панель редактирования находится далеко внизу. Режим «Есть скидка» переключает отображение цен.");
     })();
 </script>
 </body>
